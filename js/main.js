@@ -7,7 +7,7 @@ $(document).ready(function(){
         $("#s1").show();
     });
 
-    $("#favorites").click(function() {
-        $("#favorites-inner").show("slow");
+    $("#btn-help").click(function() {
+        $("#content").show();
     });
 });

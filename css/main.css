@@ -1,27 +1,31 @@
-      body {
-        font-family: "Monospace";
-        font-size: 24px;
-        background-color: black;
-        color: #FF7700;
-      }
-      #container {
-        margin-left: auto;
-        margin-right: auto;
-        text-align: center;
-      }
-      input {
-        width: 85%;
-        height: 30px;
-        font-size: 27px;
-      }
-      #q, #s1, #favorites-inner {
-        display: none;
-      }
-      #favorites {
-        margin-left: auto;
-        margin-right: auto;
-        width: 85%;
-        background-color: #FF7700;
-        color: black;
-        font-size: 12px;
-      }
+body {
+    font-family: "Monospace";
+    font-size: 24px;
+    background-color: black;
+    color: #FF7700;
+}
+#container {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+input {
+    width: 85%;
+    height: 30px;
+    font-size: 27px;
+}
+#q, #s1, #content {
+    display: none;
+}
+#menu {
+    font-size: 12px;
+}
+#content {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+    width: 85%;
+    background-color: #FF7700;
+    color: black;
+    font-size: 12px;
+}
