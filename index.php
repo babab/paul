@@ -14,6 +14,8 @@
 # WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
 # ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+#
+#
 
 if (!empty($_GET['cmd']))
   $cmd = htmlentities($_GET['cmd']);
@@ -25,29 +27,17 @@ if (!empty($_GET['q']))
 else
   $q = '';
 
-$content = '';
-
 switch ($cmd) {
-default:
-  $content .= "<strong>Did not recognize '@$cmd' as a valid command!"
-    . "</strong><hr>";
 case 'help':
-  $content .= "<h1>Help</h1>"
-    . "<strong>Here are some commands</strong>\n"
-    . "@help            - Show this help information\n"
-    . "@help &lt;command&gt;  - Show help for command\n"
-    . "#&lt;favorite&gt;      - Go to &lt;favorite&gt;\n"
-    . "\n"
-    . "<strong>Duckduckgo.com bang syntax search</strong>\n"
-    . "!yt &lt;string&gt;     - Search YouTube\n"
-    . "!g &lt;string&gt;      - Search Google\n"
-    . "!i &lt;string&gt;      - Search Google Images\n"
-    . "\n"
-    . "<a href=\"https://duckduckgo.com/?q=!bang\">"
-    . "Learn more on duckduckgo</a>";
+  $content = file_get_contents('./inc/html/help.html');
   break;
 case 'unknown':
-  $content .= '';
+  $content = file_get_contents('./inc/html/help.html');
+  break;
+default:
+  $content = "<span class=\"warn\">Warning </span> "
+    . "Did not recognize '@$cmd' as a valid command!";
+  $content .= file_get_contents('./inc/html/help.html');
 }
 
 ?><!doctype html>
