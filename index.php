@@ -30,6 +30,7 @@ require 'inc/springwhiz.php';
   </head>
   <body>
     <div id="container">
+      <h1>springwhiz</h1>
       <p id="s0">enter query</p>
       <p id="s1">press enter to submit</p>
       <form method="get" action="/parse/">
@@ -44,6 +45,10 @@ require 'inc/springwhiz.php';
       <div id="content">
         <?php echo $cmd ?>
       </div><!-- #content -->
+      <br>
+      <div id="footer">
+        <a href="http://babab.nl/springwhiz/">springwhiz v0.1</a>
+      </div><!-- #footer -->
     </div><!-- #container -->
 
     <script type="text/javascript" src="/js/main.js"></script>

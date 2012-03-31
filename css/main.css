@@ -16,17 +16,17 @@
 
 body {
     font-family: "Monospace";
-    font-size: 24px;
     background-color: black;
     color: #FF7700;
 }
 a, a:visited, a:link, a:active  {
-    color: #FF7700;
+    color: #FF4400;
+    text-decoration: none;
 }
 a:hover {
-    color: white;
     text-decoration: none;
-    background-color: #FF7700;
+    color: #FF7700;
+    background-color: white;
 }
 #container {
     margin-left: auto;
@@ -54,4 +54,7 @@ input {
 #content span.warn {
     font-size: 13px;
     color: red;
+}
+#footer {
+    font-size: 8px;
 }
