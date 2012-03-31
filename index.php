@@ -14,31 +14,13 @@
 # WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
 # ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+
+require 'inc/springwhiz.php';
+
+# Template vars
 #
-#
-
-if (!empty($_GET['cmd']))
-  $cmd = htmlentities($_GET['cmd']);
-else
-  $cmd = '';
-
-if (!empty($_GET['q']))
-  $q = htmlentities($_GET['q']);
-else
-  $q = '';
-
-switch ($cmd) {
-case 'help':
-  $content = file_get_contents('./inc/html/help.html');
-  break;
-case 'unknown':
-  $content = file_get_contents('./inc/html/help.html');
-  break;
-default:
-  $content = "<span class=\"warn\">Warning </span> "
-    . "Did not recognize '@$cmd' as a valid command!";
-  $content .= file_get_contents('./inc/html/help.html');
-}
+# var cmd     - command
+# var q       - search query
 
 ?><!doctype html>
 <html>
@@ -60,7 +42,7 @@ default:
       </div><!-- #menu -->
 
       <div id="content">
-        <pre><?php echo $content ?></pre>
+        <?php echo $cmd ?>
       </div><!-- #content -->
     </div><!-- #container -->
 
