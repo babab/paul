@@ -13,10 +13,14 @@
 # ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
-define('PREFIX_COMMAND', '@');
+require_once 'settings.php';
 
 if (!defined('SITE_URL'))
     die("query.php could not load the SITE_URL setting");
+if (!defined('PREFIX_COMMAND'))
+    die("query.php could not load the PREFIX_COMMAND setting");
+if (!defined('PREFIX_BOOKMARK'))
+    die("query.php could not load the PREFIX_BOOKMARK setting");
 
 class Query
 {
@@ -61,7 +65,7 @@ class Query
     {
         $command = substr($this->query, 1);
 
-        if ($this->hasPrefix())
+        if ($this->hasPrefix(PREFIX_COMMAND))
             if (!empty($command))
                 return $command;
             else
@@ -70,8 +74,8 @@ class Query
             return false;
     }
 
-    private function hasPrefix()
+    private function hasPrefix($prefix)
     {
-        return substr($this->query, 0, 1) == PREFIX_COMMAND;
+        return substr($this->query, 0, 1) == $prefix;
     }
 }

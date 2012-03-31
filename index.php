@@ -1,6 +1,6 @@
 <?php
 # vim: set ts=2 sw=2 sts=2:
-
+#
 # Copyright (c) 2012 Benjamin Althues <benjamin@babab.nl>
 #
 # Permission to use, copy, modify, and distribute this software for any
@@ -15,12 +15,16 @@
 # ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
+##### Template vars ##########################################################
+#
+# constant  SITE_URL  - The url defined in settings.php
+# var       cmd       - command
+# var       q         - search query
+
 require 'inc/springwhiz.php';
 
-# Template vars
-#
-# var cmd     - command
-# var q       - search query
+if (!defined('SITE_URL'))
+    die("index.php could not load the SITE_URL setting");
 
 ?><!doctype html>
 <html>
@@ -33,7 +37,7 @@ require 'inc/springwhiz.php';
       <h1>springwhiz</h1>
       <p id="s0">enter query</p>
       <p id="s1">press enter to submit</p>
-      <form method="get" action="/parse.php">
+      <form method="get" action="<?php echo SITE_URL ?>/parse.php">
         <input type="text" id="q" name="q" value="<?php echo $q ?>">
       </form>
       <br>
@@ -47,7 +51,7 @@ require 'inc/springwhiz.php';
       </div><!-- #content -->
       <br>
       <div id="footer">
-        <a href="http://babab.nl/springwhiz/">springwhiz v0.1</a>
+        <a href="http://code.babab.nl/springwhiz/">springwhiz v0.1</a>
       </div><!-- #footer -->
     </div><!-- #container -->
 
