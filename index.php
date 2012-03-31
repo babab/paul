@@ -33,7 +33,7 @@ require 'inc/springwhiz.php';
       <h1>springwhiz</h1>
       <p id="s0">enter query</p>
       <p id="s1">press enter to submit</p>
-      <form method="get" action="/parse/">
+      <form method="get" action="/parse.php">
         <input type="text" id="q" name="q" value="<?php echo $q ?>">
       </form>
       <br>

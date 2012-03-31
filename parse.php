@@ -15,7 +15,7 @@
 
 define('SITE_URL', 'http://start');
 
-require_once 'query.php';
+require_once 'inc/query.php';
 
 $q = new Query();
 
