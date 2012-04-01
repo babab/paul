@@ -17,6 +17,6 @@ require_once 'inc/query.php';
 
 $q = new Query();
 
-if ($query = $q->qparse())
+if ($query = $q->handle())
     header("Location: https://duckduckgo.com/?q=" . $query);
 

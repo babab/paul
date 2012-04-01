@@ -13,17 +13,24 @@
 # ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
-require_once 'settings.php';
-require_once 'inc/bookmark.php';
-require_once 'inc/command.php';
+class bookmark {
 
+    private $exists;
 
-if (!empty($_GET['cmd']))
-  $cmd = command::getContent(htmlentities($_GET['cmd']));
-else
-  $cmd = command::getContent('');
+    public function __construct($bm)
+    {
+        if (empty($bm)) {
+            $this->exists = false;
+        }
+        else {
+            $test_url = "http://www.$bm.com";
+            header("Location: $test_url");
+            exit;
+        }
+    }
 
-if (!empty($_GET['q']))
-  $q = htmlentities($_GET['q']);
-else
-  $q = '';
+    public function doesNotExist()
+    {
+            return $this->exists == false;
+    }
+}

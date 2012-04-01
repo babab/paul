@@ -14,6 +14,7 @@
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 require_once 'settings.php';
+require_once 'inc/bookmark.php';
 
 if (!defined('SITE_URL'))
     die("query.php could not load the SITE_URL setting");
@@ -36,7 +37,7 @@ class Query
             $this->redirectIfEmpty();
     }
 
-    public function qparse()
+    public function handle()
     {
         if (!$this->redirectOnInit)
             $this->redirectIfEmpty();
@@ -46,6 +47,9 @@ class Query
                     $cmd, $this->query);
             header("Location: $location");
             exit;
+        }
+        else if ($bm_str = $this->bookmark()) {
+          $bm = new bookmark($bm_str);
         }
         else
             return $this->query;
@@ -70,6 +74,16 @@ class Query
                 return $command;
             else
                 return 'unknown';
+        else
+            return false;
+    }
+
+    public function bookmark()
+    {
+        $bookmark = substr($this->query, 1);
+
+        if ($this->hasPrefix(PREFIX_BOOKMARK) && !empty($bookmark))
+            return $bookmark;
         else
             return false;
     }
