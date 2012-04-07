@@ -15,7 +15,7 @@
 
 $sprwz_conf = parse_ini_file('../config', true);
 
-require_once 'bookmark.php';
+require_once 'inc/bookmark.php';
 
 if (empty($sprwz_conf['main']['base_url']))
     die("query.php could not load the base_url setting");

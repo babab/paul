@@ -23,8 +23,8 @@ if (empty($sprwz_conf))
 if (empty($sprwz_conf['main']['base_url']))
     die("springwhiz.php could not load the base_url setting");
 
-require_once 'bookmark.php';
-require_once 'command.php';
+require_once 'inc/bookmark.php';
+require_once 'inc/command.php';
 
 $settings = $sprwz_conf['main'];
 
