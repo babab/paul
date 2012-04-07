@@ -14,7 +14,7 @@
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 require_once 'settings.php';
-require_once 'inc/bookmark.php';
+require_once 'bookmark.php';
 
 if (!defined('SITE_URL'))
     die("query.php could not load the SITE_URL setting");

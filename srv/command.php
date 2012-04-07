@@ -35,12 +35,12 @@ class command {
 
         switch ($command) {
         case 'help':
-            return file_get_contents('./inc/html/help.html');
+            return file_get_contents('./html/help.html');
             break;
         default:
             return "<span class=\"warn\">Warning </span> "
                 . "Did not recognize '@$cmd' as a valid command!"
-                . file_get_contents('./inc/html/help.html');
+                . file_get_contents('./html/help.html');
         }
     }
 }
