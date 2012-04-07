@@ -21,7 +21,7 @@
 # var       cmd       - command
 # var       q         - search query
 
-require 'inc/springwhiz.php';
+require 'springwhiz.php';
 
 if (!defined('SITE_URL'))
     die("index.php could not load the SITE_URL setting");
