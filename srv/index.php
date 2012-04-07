@@ -34,7 +34,7 @@ require 'springwhiz.php';
       <h1>springwhiz</h1>
       <p id="s0">enter query</p>
       <p id="s1">press enter to submit</p>
-      <form method="get" action="<?php echo $settings['base_url']?>/parse.php">
+      <form method="get" action="<?php echo $settings['base_url']?>/query.php">
         <input type="text" id="q" name="q" value="<?php echo $q ?>">
       </form>
       <br>

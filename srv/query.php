@@ -99,3 +99,9 @@ class Query
         return substr($this->query, 0, 1) == $prefix;
     }
 }
+
+$q = new Query();
+
+if ($query = $q->handle())
+    header("Location: https://duckduckgo.com/?q=" . $query);
+
