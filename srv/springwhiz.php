@@ -13,10 +13,20 @@
 # ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
-require_once 'settings.php';
+$sprwz_conf = parse_ini_file('../config', true);
+
+if (empty($sprwz_conf))
+    die("<p style\"color:red\"><strong>Error</strong>
+            Could not load config file. Please copy 'config.example' to
+            'config' and edit it.");
+
+if (empty($sprwz_conf['main']['base_url']))
+    die("springwhiz.php could not load the base_url setting");
+
 require_once 'bookmark.php';
 require_once 'command.php';
 
+$settings = $sprwz_conf['main'];
 
 if (!empty($_GET['cmd']))
   $cmd = command::getContent(htmlentities($_GET['cmd']));

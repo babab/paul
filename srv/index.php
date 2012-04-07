@@ -17,14 +17,11 @@
 
 ##### Template vars ##########################################################
 #
-# constant  SITE_URL  - The url defined in settings.php
+# var       settings  - The [main] settings from the 'config' file
 # var       cmd       - command
 # var       q         - search query
 
 require 'springwhiz.php';
-
-if (!defined('SITE_URL'))
-    die("index.php could not load the SITE_URL setting");
 
 ?><!doctype html>
 <html>
@@ -37,7 +34,7 @@ if (!defined('SITE_URL'))
       <h1>springwhiz</h1>
       <p id="s0">enter query</p>
       <p id="s1">press enter to submit</p>
-      <form method="get" action="<?php echo SITE_URL ?>/parse.php">
+      <form method="get" action="<?php echo $settings['base_url']?>/parse.php">
         <input type="text" id="q" name="q" value="<?php echo $q ?>">
       </form>
       <br>

@@ -1,0 +1,17 @@
+[main]
+base_url = http://start
+
+[db]
+host    = localhost
+port    = 3306
+name    = sprwz
+user    = username
+pass    = password
+prefix  = sprwz_
+
+[core]
+prefix_command  = @
+prefix_bookmark = #
+
+
+;vim: set ft=dosini:

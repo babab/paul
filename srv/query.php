@@ -13,23 +13,28 @@
 # ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
-require_once 'settings.php';
+$sprwz_conf = parse_ini_file('../config', true);
+
 require_once 'bookmark.php';
 
-if (!defined('SITE_URL'))
-    die("query.php could not load the SITE_URL setting");
-if (!defined('PREFIX_COMMAND'))
-    die("query.php could not load the PREFIX_COMMAND setting");
-if (!defined('PREFIX_BOOKMARK'))
-    die("query.php could not load the PREFIX_BOOKMARK setting");
+if (empty($sprwz_conf['main']['base_url']))
+    die("query.php could not load the base_url setting");
+if (empty($sprwz_conf['core']['prefix_command']))
+    die("query.php could not load the prefix_command setting");
+if (empty($sprwz_conf['core']['prefix_bookmark']))
+    die("query.php could not load the prefix_bookmark setting");
 
 class Query
 {
     private $query;
     private $redirectOnInit;
+    private $conf;
 
     public function __construct($auto_redirect=false)
     {
+        global $sprwz_conf;
+
+        $this->conf = $sprwz_conf;
         $this->query = urldecode(trim($_GET['q']));
         $this->redirectOnInit = $auto_redirect;
 
@@ -43,8 +48,8 @@ class Query
             $this->redirectIfEmpty();
 
         if ($cmd = $this->command()) {
-            $location = sprintf("%s/?cmd=%s&q=%s", SITE_URL,
-                    $cmd, $this->query);
+            $location = sprintf("%s/?cmd=%s&q=%s",
+                    $this->conf['main']['base_url'], $cmd, $this->query);
             header("Location: $location");
             exit;
         }
@@ -58,7 +63,7 @@ class Query
     public function redirectIfEmpty($exit_after_redirect=true)
     {
         if (empty($this->query)) {
-            header('Location: ' . SITE_URL);
+            header('Location: ' . $this->conf['main']['base_url']);
 
             if ($exit_after_redirect)
                 exit;
@@ -69,7 +74,7 @@ class Query
     {
         $command = substr($this->query, 1);
 
-        if ($this->hasPrefix(PREFIX_COMMAND))
+        if ($this->hasPrefix($this->conf['core']['prefix_command']))
             if (!empty($command))
                 return $command;
             else
@@ -82,7 +87,8 @@ class Query
     {
         $bookmark = substr($this->query, 1);
 
-        if ($this->hasPrefix(PREFIX_BOOKMARK) && !empty($bookmark))
+        if ($this->hasPrefix($this->conf['core']['prefix_bookmark'])
+                && !empty($bookmark))
             return $bookmark;
         else
             return false;
