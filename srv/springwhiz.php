@@ -29,9 +29,9 @@ require_once 'inc/command.php';
 $settings = $sprwz_conf['main'];
 
 if (!empty($_GET['cmd']))
-  $cmd = command::getContent(htmlentities($_GET['cmd']));
+  $content = command::getContent(htmlentities($_GET['cmd']));
 else
-  $cmd = command::getContent('');
+  $content = command::getContent('');
 
 if (!empty($_GET['q']))
   $q = htmlentities($_GET['q']);

@@ -18,7 +18,7 @@
 ##### Template vars ##########################################################
 #
 # var       settings  - The [main] settings from the 'config' file
-# var       cmd       - command
+# var       content   - The content loaded depending on given optional command
 # var       q         - search query
 
 require 'springwhiz.php';
@@ -44,7 +44,7 @@ require 'springwhiz.php';
       </div><!-- #menu -->
 
       <div id="content">
-        <?php echo $cmd ?>
+        <?php echo $content ?>
       </div><!-- #content -->
       <br>
       <div id="footer">
@@ -53,7 +53,7 @@ require 'springwhiz.php';
     </div><!-- #container -->
 
     <script type="text/javascript" src="/js/main.js"></script>
-    <?php if (!empty($cmd)): ?>
+    <?php if (!empty($content)): ?>
       <script type="text/javascript">
         $("#content").show();
         $("#menu").hide();
