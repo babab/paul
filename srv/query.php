@@ -15,6 +15,7 @@
 
 $sprwz_conf = parse_ini_file('../config', true);
 
+require_once 'inc/lib/dbhandler.php';
 require_once 'inc/bookmark.php';
 
 if (empty($sprwz_conf['main']['base_url']))

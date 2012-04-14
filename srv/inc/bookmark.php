@@ -15,10 +15,13 @@
 
 class bookmark {
 
+    private $db;
     private $exists;
 
     public function __construct($bm)
     {
+        $this->db = new dbhandler;
+
         if (empty($bm)) {
             $this->exists = false;
         }
