@@ -16,9 +16,23 @@
  */
 
 class sprwz {
+    public static $settings = array(
+            'base_url',
+            'prefix_command',
+            'prefix_bookmark',
+            'search_engine_url',
+            'db_host',
+            'db_port',
+            'db_name',
+            'db_user',
+            'db_pass',
+            'db_prefix',
+            );
+
     protected $base_url;
     protected $prefix_command;
     protected $prefix_bookmark;
+    protected $search_engine_url;
 
     protected $db_host;
     protected $db_port;
@@ -38,6 +52,7 @@ class sprwz {
         $this->base_url = $conf['main']['base_url'];
         $this->prefix_command = $conf['core']['prefix_command'];
         $this->prefix_bookmark = $conf['core']['prefix_bookmark'];
+        $this->search_engine_url = $conf['core']['search_engine_url'];
 
         $this->db_host = $conf['db']['host'];
         $this->db_port = $conf['db']['port'];
@@ -56,19 +71,7 @@ class sprwz {
 
     public function checkconf()
     {
-        $settings = array(
-            'base_url',
-            'prefix_command',
-            'prefix_bookmark',
-            'db_host',
-            'db_port',
-            'db_name',
-            'db_user',
-            'db_pass',
-            'db_prefix',
-            );
-
-        foreach ($settings as $s) {
+        foreach (self::$settings as $s) {
             if (empty($this->$s))
                 self::error("Could not load the $s setting from config file.");
         }

@@ -27,8 +27,11 @@ class Query extends sprwz
 
         $this->query = urldecode(trim($_GET['q']));
 
-        if ($query = $q->handle())
-            header("Location: https://duckduckgo.com/?q=" . $query);
+        if ($query = $this->handle()) {
+            $url = $this->search_engine_url . $query;
+            header("Location: $url");
+            exit;
+        }
     }
 
     public function handle()

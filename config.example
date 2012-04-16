@@ -12,6 +12,7 @@ prefix  = sprwz_
 [core]
 prefix_command  = @
 prefix_bookmark = #
+search_engine_url = "https://duckduckgo.com/?q="
 
 
 ;vim: set ft=dosini:
