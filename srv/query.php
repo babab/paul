@@ -20,25 +20,17 @@ require_once 'inc/bookmark.php';
 class Query extends sprwz
 {
     private $query;
-    private $redirectOnInit;
     private $conf;
 
-    public function __construct($auto_redirect=false)
+    public function __construct()
     {
         parent::__construct();
 
         $this->query = urldecode(trim($_GET['q']));
-        $this->redirectOnInit = $auto_redirect;
-
-        if ($auto_redirect)
-            $this->redirectIfEmpty();
     }
 
     public function handle()
     {
-        if (!$this->redirectOnInit)
-            $this->redirectIfEmpty();
-
         if ($cmd = $this->command()) {
             $location = sprintf("%s/?cmd=%s&q=%s",
                     $this->base_url, $cmd, $this->query);
@@ -50,16 +42,6 @@ class Query extends sprwz
         }
         else
             return $this->query;
-    }
-
-    public function redirectIfEmpty($exit_after_redirect=true)
-    {
-        if (empty($this->query)) {
-            header('Location: ' . $this->base_url);
-
-            if ($exit_after_redirect)
-                exit;
-        }
     }
 
     public function command()
