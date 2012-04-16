@@ -13,19 +13,11 @@
 # ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
-$sprwz_conf = parse_ini_file('../config', true);
-
+require_once 'inc/lib/sprwz.php';
 require_once 'inc/lib/dbhandler.php';
 require_once 'inc/bookmark.php';
 
-if (empty($sprwz_conf['main']['base_url']))
-    die("query.php could not load the base_url setting");
-if (empty($sprwz_conf['core']['prefix_command']))
-    die("query.php could not load the prefix_command setting");
-if (empty($sprwz_conf['core']['prefix_bookmark']))
-    die("query.php could not load the prefix_bookmark setting");
-
-class Query
+class Query extends sprwz
 {
     private $query;
     private $redirectOnInit;
@@ -33,9 +25,8 @@ class Query
 
     public function __construct($auto_redirect=false)
     {
-        global $sprwz_conf;
+        parent::__construct();
 
-        $this->conf = $sprwz_conf;
         $this->query = urldecode(trim($_GET['q']));
         $this->redirectOnInit = $auto_redirect;
 
@@ -50,7 +41,7 @@ class Query
 
         if ($cmd = $this->command()) {
             $location = sprintf("%s/?cmd=%s&q=%s",
-                    $this->conf['main']['base_url'], $cmd, $this->query);
+                    $this->base_url, $cmd, $this->query);
             header("Location: $location");
             exit;
         }
@@ -64,7 +55,7 @@ class Query
     public function redirectIfEmpty($exit_after_redirect=true)
     {
         if (empty($this->query)) {
-            header('Location: ' . $this->conf['main']['base_url']);
+            header('Location: ' . $this->base_url);
 
             if ($exit_after_redirect)
                 exit;
@@ -75,7 +66,7 @@ class Query
     {
         $command = substr($this->query, 1);
 
-        if ($this->hasPrefix($this->conf['core']['prefix_command']))
+        if ($this->hasPrefix($this->prefix_command))
             if (!empty($command))
                 return $command;
             else
@@ -88,7 +79,7 @@ class Query
     {
         $bookmark = substr($this->query, 1);
 
-        if ($this->hasPrefix($this->conf['core']['prefix_bookmark'])
+        if ($this->hasPrefix($this->prefix_bookmark)
                 && !empty($bookmark))
             return $bookmark;
         else

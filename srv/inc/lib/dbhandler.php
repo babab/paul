@@ -15,29 +15,21 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-class dbhandler {
-    private $db_prefix;
+class dbhandler extends sprwz {
     private $db_conn;
     private $db_query;
     private $db_res;
 
     public function __construct()
     {
-        $conf = parse_ini_file('../config', true);
+        parent::__construct();
 
-        $db_host = $conf['db']['host'];
-        $db_port = $conf['db']['port'];
-        $db_name = $conf['db']['name'];
-        $db_user = $conf['db']['user'];
-        $db_pass = $conf['db']['pass'];
-        $this->db_prefix = $conf['db']['prefix'];
-
-        $this->db_conn = mysql_connect($db_host.':'.$db_port,
-                                       $db_user, $db_pass);
+        $this->db_conn = mysql_connect($this->db_host.':'.$this->db_port,
+                                       $this->db_user, $this->db_pass);
         if (!$this->db_conn)
             die ("Connection error: ". mysql_error());
-        if (!mysql_select_db($db_name, $this->db_conn)) {
-            die ("Error connecting to database '" . $db_name .
+        if (!mysql_select_db($this->db_name, $this->db_conn)) {
+            die ("Error connecting to database '" . $this->db_name .
                 "': ". mysql_error());
         }
         return $this;
