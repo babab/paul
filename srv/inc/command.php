@@ -33,10 +33,19 @@ class command {
         if (empty($cmd))
             return array('', '');
 
-        if (array_key_exists($cmd, static::$commandlist))
-            $command = static::$commandlist[$cmd];
+        $args = explode(' ', $cmd);
+
+        if (array_key_exists($args[0], static::$commandlist))
+            $command = static::$commandlist[$args[0]];
         else
             $command = '_doesnotexist';
+
+        if ($command == 'login') {
+            if (!empty($args[1]))
+                $_SESSION['username'] = $args[1];
+            else
+                $_SESSION['username'] = '';
+        }
 
         switch ($command) {
         case 'help':

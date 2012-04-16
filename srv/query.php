@@ -24,6 +24,7 @@ class Query extends sprwz
     public function __construct()
     {
         parent::__construct();
+        session_start();
 
         $this->query = urldecode(trim($_GET['q']));
 

@@ -15,6 +15,8 @@
 # ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
+session_start();
+
 require 'inc/springwhiz.php';
 $tpl = new springwhiz;
 
@@ -43,7 +45,12 @@ $q        = $tpl->get_q();
         <form method="post"
               action="<?php echo $base_url ?>/query.php">
           Username<br>
-          <input type="text" id="username" name="username"><br><br>
+          <?php if (!empty($_SESSION['username'])): ?>
+            <input type="text" id="username" name="username"
+                   value="<?php echo $_SESSION['username'] ?>"><br><br>
+          <?php else: ?>
+            <input type="text" id="username" name="username"><br><br>
+          <?php endif ?>
           Password<br>
           <input type="password" id="password" name="password">
       <?php else: ?>
@@ -79,7 +86,11 @@ $q        = $tpl->get_q();
     <?php if (isset($cmd) && $cmd == 'login'): ?>
       <script type="text/javascript">
         $(document).ready(function(){
-          $("#username").focus();
+          <?php if (empty($_SESSION['username'])): ?>
+            $("#username").focus();
+          <?php else: ?>
+            $("#password").focus();
+          <?php endif ?>
         });
       </script>
     <?php endif ?>
