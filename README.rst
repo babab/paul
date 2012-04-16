@@ -25,6 +25,7 @@ Help
 
 Here are some commands::
 
+  @l[ogin] [username]     - Will bring you to the login dialog
   @h[elp]                 - Show this help information
   @h[elp] <command>       - Show help for command
   #<label>                - Go to favorite with label
