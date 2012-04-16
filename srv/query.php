@@ -20,7 +20,6 @@ require_once 'inc/bookmark.php';
 class Query extends sprwz
 {
     private $query;
-    private $conf;
 
     public function __construct()
     {
