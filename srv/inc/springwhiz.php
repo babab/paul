@@ -27,7 +27,7 @@ class springwhiz extends sprwz
 
     public function get_base_url()
     {
-      return $this->base_url;
+        return $this->base_url;
     }
 
     private function _parseCommand()
@@ -56,8 +56,8 @@ class springwhiz extends sprwz
     public function get_q()
     {
         if (!empty($_GET['q']))
-          return htmlentities($_GET['q']);
+            return htmlentities($_GET['q']);
         else
-          return '';
+            return '';
     }
 }
