@@ -31,11 +31,9 @@ $q        = $tpl->get_q();
   </head>
   <body>
     <div id="container">
-      <h1>springwhiz</h1>
+    <h1><a href="<?php echo $base_url ?>">springwhiz</a></h1>
 
-      <?php if (isset($cmd) && $cmd == 'login'): ?>
-        <p id="s0">please enter your password</p>
-      <?php else: ?>
+      <?php if (!isset($cmd) || $cmd != 'login'): ?>
         <p id="s0">enter query</p>
       <?php endif ?>
 
@@ -44,6 +42,9 @@ $q        = $tpl->get_q();
       <?php if (isset($cmd) && $cmd == 'login'): ?>
         <form method="post"
               action="<?php echo $base_url ?>/query.php">
+          Username<br>
+          <input type="text" id="username" name="username"><br><br>
+          Password<br>
           <input type="password" id="password" name="password">
       <?php else: ?>
         <form method="get"
@@ -78,7 +79,7 @@ $q        = $tpl->get_q();
     <?php if (isset($cmd) && $cmd == 'login'): ?>
       <script type="text/javascript">
         $(document).ready(function(){
-          $("#password").focus();
+          $("#username").focus();
         });
       </script>
     <?php endif ?>

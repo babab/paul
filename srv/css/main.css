@@ -33,13 +33,16 @@ a:hover {
     margin-right: auto;
     text-align: center;
 }
+#q, #s1, #content {
+    display: none;
+}
 input {
-    width: 85%;
+    width: 400px;
     height: 30px;
     font-size: 27px;
 }
-#q, #s1, #content {
-    display: none;
+#q {
+    width: 85%;
 }
 #menu {
     font-size: 12px;

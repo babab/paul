@@ -43,7 +43,7 @@ class command {
             return array('help', file_get_contents('./html/help.html'));
             break;
         case 'login':
-            return array('login', 'Please enter your password');
+            return array('login', ' ');
             break;
         default:
             return "<span class=\"warn\">Warning </span> "
