@@ -26,6 +26,9 @@ class Query extends sprwz
         parent::__construct();
 
         $this->query = urldecode(trim($_GET['q']));
+
+        if ($query = $q->handle())
+            header("Location: https://duckduckgo.com/?q=" . $query);
     }
 
     public function handle()
@@ -37,7 +40,7 @@ class Query extends sprwz
             exit;
         }
         else if ($bm_str = $this->bookmark()) {
-          $bm = new bookmark($bm_str);
+            $bm = new bookmark($bm_str);
         }
         else
             return $this->query;
@@ -74,7 +77,4 @@ class Query extends sprwz
 }
 
 $q = new Query();
-
-if ($query = $q->handle())
-    header("Location: https://duckduckgo.com/?q=" . $query);
 
