@@ -20,13 +20,18 @@ class command {
         'he'        => 'help',
         'hel'       => 'help',
         'help'      => 'help',
+        'l'         => 'login',
+        'lo'        => 'login',
+        'log'       => 'login',
+        'logi'      => 'login',
+        'login'     => 'login',
         'unknown'   => 'help',
     );
 
     public static function getContent($cmd)
     {
         if (empty($cmd))
-            return '';
+            return array('', '');
 
         if (array_key_exists($cmd, static::$commandlist))
             $command = static::$commandlist[$cmd];
@@ -35,7 +40,10 @@ class command {
 
         switch ($command) {
         case 'help':
-            return file_get_contents('./html/help.html');
+            return array('help', file_get_contents('./html/help.html'));
+            break;
+        case 'login':
+            return array('login', 'Please enter your password');
             break;
         default:
             return "<span class=\"warn\">Warning </span> "

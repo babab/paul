@@ -18,6 +18,8 @@ require_once 'inc/command.php';
 
 class springwhiz extends sprwz
 {
+    private $command;
+
     public function __construct()
     {
         parent::__construct();
@@ -28,12 +30,27 @@ class springwhiz extends sprwz
       return $this->base_url;
     }
 
+    private function _parseCommand()
+    {
+        if (!$this->command) {
+            if (!empty($_GET['cmd']))
+                $this->command = command::getContent(
+                        htmlentities($_GET['cmd']));
+            else
+                $this->command = command::getContent(htmlentities(''));
+        }
+    }
+
+    public function get_cmd()
+    {
+        $this->_parseCommand();
+        return $this->command[0];
+    }
+
     public function get_content()
     {
-        if (!empty($_GET['cmd']))
-          return command::getContent(htmlentities($_GET['cmd']));
-        else
-          return command::getContent('');
+        $this->_parseCommand();
+        return $this->command[1];
     }
 
     public function get_q()

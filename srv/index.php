@@ -19,6 +19,7 @@ require 'inc/springwhiz.php';
 $tpl = new springwhiz;
 
 $base_url = $tpl->get_base_url();
+$cmd      = $tpl->get_cmd();
 $content  = $tpl->get_content();
 $q        = $tpl->get_q();
 
@@ -31,10 +32,24 @@ $q        = $tpl->get_q();
   <body>
     <div id="container">
       <h1>springwhiz</h1>
-      <p id="s0">enter query</p>
+
+      <?php if (isset($cmd) && $cmd == 'login'): ?>
+        <p id="s0">please enter your password</p>
+      <?php else: ?>
+        <p id="s0">enter query</p>
+      <?php endif ?>
+
       <p id="s1">press enter to submit</p>
-      <form method="get" action="<?php echo $base_url ?>/query.php">
-        <input type="text" id="q" name="q" value="<?php echo $q ?>">
+
+      <?php if (isset($cmd) && $cmd == 'login'): ?>
+        <form method="post"
+              action="<?php echo $base_url ?>/query.php">
+          <input type="password" id="password" name="password">
+      <?php else: ?>
+        <form method="get"
+              action="<?php echo $base_url ?>/query.php">
+          <input type="text" id="q" name="q" value="<?php echo $q ?>">
+      <?php endif ?>
       </form>
       <br>
 
@@ -54,8 +69,17 @@ $q        = $tpl->get_q();
     <script type="text/javascript" src="/js/main.js"></script>
     <?php if (!empty($content)): ?>
       <script type="text/javascript">
-        $("#content").show();
-        $("#menu").hide();
+        $(document).ready(function(){
+          $("#content").show();
+          $("#menu").hide();
+        });
+      </script>
+    <?php endif ?>
+    <?php if (isset($cmd) && $cmd == 'login'): ?>
+      <script type="text/javascript">
+        $(document).ready(function(){
+          $("#password").focus();
+        });
       </script>
     <?php endif ?>
 
