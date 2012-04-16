@@ -13,26 +13,34 @@
 # ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
-$sprwz_conf = parse_ini_file('../config', true);
-
-if (empty($sprwz_conf))
-    die("<p style\"color:red\"><strong>Error</strong>
-            Could not load config file. Please copy 'config.example' to
-            'config' and edit it.");
-
-if (empty($sprwz_conf['main']['base_url']))
-    die("springwhiz.php could not load the base_url setting");
-
+require_once 'inc/lib/sprwz.php';
 require_once 'inc/command.php';
 
-$settings = $sprwz_conf['main'];
+class springwhiz extends sprwz
+{
+    public function __construct()
+    {
+        parent::__construct();
+    }
 
-if (!empty($_GET['cmd']))
-  $content = command::getContent(htmlentities($_GET['cmd']));
-else
-  $content = command::getContent('');
+    public function get_base_url()
+    {
+      return $this->base_url;
+    }
 
-if (!empty($_GET['q']))
-  $q = htmlentities($_GET['q']);
-else
-  $q = '';
+    public function get_content()
+    {
+        if (!empty($_GET['cmd']))
+          return command::getContent(htmlentities($_GET['cmd']));
+        else
+          return command::getContent('');
+    }
+
+    public function get_q()
+    {
+        if (!empty($_GET['q']))
+          return htmlentities($_GET['q']);
+        else
+          return '';
+    }
+}

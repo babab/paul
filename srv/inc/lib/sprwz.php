@@ -31,6 +31,10 @@ class sprwz {
     {
         $conf = parse_ini_file('../config', true);
 
+        if (empty($conf))
+            $this->error("Could not load config file. Please copy "
+                    . "'config.example' to 'config' and edit it.");
+
         $this->base_url = $conf['main']['base_url'];
         $this->prefix_command = $conf['core']['prefix_command'];
         $this->prefix_bookmark = $conf['core']['prefix_bookmark'];
@@ -41,5 +45,32 @@ class sprwz {
         $this->db_user = $conf['db']['user'];
         $this->db_pass = $conf['db']['pass'];
         $this->db_prefix = $conf['db']['prefix'];
+
+        $this->checkconf();
+    }
+
+    public static function error($errormsg)
+    {
+        die("<p><strong style=\"color:red\">Error</strong> $errormsg");
+    }
+
+    public function checkconf()
+    {
+        $settings = array(
+            'base_url',
+            'prefix_command',
+            'prefix_bookmark',
+            'db_host',
+            'db_port',
+            'db_name',
+            'db_user',
+            'db_pass',
+            'db_prefix',
+            );
+
+        foreach ($settings as $s) {
+            if (empty($this->$s))
+                self::error("Could not load the $s setting from config file.");
+        }
     }
 }

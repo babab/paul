@@ -15,13 +15,12 @@
 # ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
-##### Template vars ##########################################################
-#
-# var       settings  - The [main] settings from the 'config' file
-# var       content   - The content loaded depending on given optional command
-# var       q         - search query
+require 'inc/springwhiz.php';
+$tpl = new springwhiz;
 
-require 'springwhiz.php';
+$base_url = $tpl->get_base_url();
+$content  = $tpl->get_content();
+$q        = $tpl->get_q();
 
 ?><!doctype html>
 <html>
@@ -34,7 +33,7 @@ require 'springwhiz.php';
       <h1>springwhiz</h1>
       <p id="s0">enter query</p>
       <p id="s1">press enter to submit</p>
-      <form method="get" action="<?php echo $settings['base_url']?>/query.php">
+      <form method="get" action="<?php echo $base_url ?>/query.php">
         <input type="text" id="q" name="q" value="<?php echo $q ?>">
       </form>
       <br>
