@@ -55,9 +55,9 @@ class command {
             return array('login', ' ');
             break;
         default:
-            return "<span class=\"warn\">Warning </span> "
+            return array('', "<span class=\"warn\">Warning </span> "
                 . "Did not recognize '@$cmd' as a valid command!"
-                . file_get_contents('./html/help.html');
+                . file_get_contents('./html/help.html'));
         }
     }
 }
