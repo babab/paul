@@ -53,7 +53,10 @@ class dbhandler extends sprwz {
                 $this->db_res[] = $row;
         }
 
-        return $this->db_res;
+        if (!empty($this->db_res))
+            return $this->db_res;
+        else
+            return false;
     }
 
     public function qfetch($query)
@@ -64,7 +67,9 @@ class dbhandler extends sprwz {
     public function qfetch_first($query)
     {
         $rows = $this->query($query . ' LIMIT 1')->fetch();
-        return $rows[0];
-
+        if (isset($rows[0]))
+            return $rows[0];
+        else
+            return false;
     }
 }
