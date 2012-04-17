@@ -52,7 +52,8 @@ $q        = $tpl->get_q();
             <input type="text" id="username" name="username"><br><br>
           <?php endif ?>
           Password<br>
-          <input type="password" id="password" name="password">
+          <input type="password" id="password" name="password"><br><br>
+          <input type="submit" id="submit" name="submit" value="Login">
       <?php else: ?>
         <form method="get"
               action="<?php echo $base_url ?>/query.php">
@@ -83,6 +84,7 @@ $q        = $tpl->get_q();
         });
       </script>
     <?php endif ?>
+
     <?php if (isset($cmd) && $cmd == 'login'): ?>
       <script type="text/javascript">
         $(document).ready(function(){

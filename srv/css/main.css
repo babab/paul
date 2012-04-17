@@ -44,6 +44,11 @@ input {
 #q {
     width: 85%;
 }
+#submit {
+    font-size: 20px;
+    color: white;
+    background-color: #FF4400;
+}
 #menu {
     font-size: 12px;
 }
