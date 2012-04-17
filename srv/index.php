@@ -41,7 +41,7 @@ $q        = $tpl->get_q();
 
       <p id="s1">press enter to submit</p>
 
-      <?php if (isset($cmd) && $cmd == 'login'): ?>
+      <?php if (isset($cmd) && ($cmd == 'login' || $cmd == 'register')): ?>
         <form method="post"
               action="<?php echo $base_url ?>/query.php">
           Username<br>
@@ -53,6 +53,10 @@ $q        = $tpl->get_q();
           <?php endif ?>
           Password<br>
           <input type="password" id="password" name="password"><br><br>
+          <?php if ($cmd == 'register'): ?>
+            Password again<br>
+            <input type="password" id="password2" name="password2"><br><br>
+          <?php endif ?>
           <input type="submit" id="submit" name="submit" value="Login">
       <?php else: ?>
         <form method="get"

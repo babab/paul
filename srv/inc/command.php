@@ -25,6 +25,14 @@ class command {
         'log'       => 'login',
         'logi'      => 'login',
         'login'     => 'login',
+        'r'         => 'register',
+        're'        => 'register',
+        'reg'       => 'register',
+        'regi'      => 'register',
+        'regis'     => 'register',
+        'regist'    => 'register',
+        'registe'   => 'register',
+        'register'  => 'register',
         'unknown'   => 'help',
     );
 
@@ -53,6 +61,10 @@ class command {
             break;
         case 'login':
             return array('login', ' ');
+            break;
+        case 'register':
+            $_SESSION['username'] = '';
+            return array('register', ' ');
             break;
         default:
             return array('', "<span class=\"warn\">Warning </span> "
