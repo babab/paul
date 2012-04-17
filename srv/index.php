@@ -24,6 +24,7 @@ $base_url = $tpl->get_base_url();
 $cmd      = $tpl->get_cmd();
 $content  = $tpl->get_content();
 $q        = $tpl->get_q();
+$csrf_token = $tpl->get_csrf_token();
 
 ?><!doctype html>
 <html>
@@ -62,6 +63,8 @@ $q        = $tpl->get_q();
         <form method="get"
               action="<?php echo $base_url ?>/query.php">
           <input type="text" id="q" name="q" value="<?php echo $q ?>">
+          <input type="hidden" id="csrf_token" name="csrf_token"
+                 value="<?php echo $csrf_token ?>">
       <?php endif ?>
       </form>
       <br>

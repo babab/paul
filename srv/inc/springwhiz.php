@@ -60,4 +60,11 @@ class springwhiz extends sprwz
         else
             return '';
     }
+
+    public function get_csrf_token()
+    {
+        $csrf_token = md5($this->secret_key . mt_rand());
+        $_SESSION['csrf_token'] = $csrf_token;
+        return $csrf_token;
+    }
 }
