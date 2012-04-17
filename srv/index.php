@@ -20,10 +20,10 @@ session_start();
 require 'inc/springwhiz.php';
 $tpl = new springwhiz;
 
-$base_url = $tpl->get_base_url();
-$cmd      = $tpl->get_cmd();
-$content  = $tpl->get_content();
-$q        = $tpl->get_q();
+$base_url   = $tpl->get_base_url();
+$cmd        = $tpl->get_cmd();
+$content    = $tpl->get_content();
+$q          = $tpl->get_q();
 $csrf_token = $tpl->get_csrf_token();
 
 ?><!doctype html>
