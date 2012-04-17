@@ -18,6 +18,7 @@
 class sprwz {
     public static $settings = array(
             'base_url',
+            'secret_key',
             'prefix_command',
             'prefix_bookmark',
             'search_engine_url',
@@ -30,6 +31,7 @@ class sprwz {
             );
 
     protected $base_url;
+    protected $secret_key;
     protected $prefix_command;
     protected $prefix_bookmark;
     protected $search_engine_url;
@@ -50,6 +52,7 @@ class sprwz {
                     . "'config.example' to 'config' and edit it.");
 
         $this->base_url = $conf['main']['base_url'];
+        $this->secret_key = $conf['main']['secret_key'];
         $this->prefix_command = $conf['core']['prefix_command'];
         $this->prefix_bookmark = $conf['core']['prefix_bookmark'];
         $this->search_engine_url = $conf['core']['search_engine_url'];
