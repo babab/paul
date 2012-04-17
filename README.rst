@@ -25,22 +25,21 @@ Help
 
 Here are some commands::
 
+  @r[egister]             - Will bring you to the register dialog
   @l[ogin] [username]     - Will bring you to the login dialog
   @h[elp]                 - Show this help information
-  @h[elp] <command>       - Show help for command
   #<label>                - Go to favorite with label
 
 Duckduckgo.com bang syntax search::
 
-  \ <string>              - Browse to 1st result for string
-  !! <string>             - Browse to 1st result for string
+  \<string>               - Browse to 1st result for string
   !yt <string>            - Search YouTube
   !g <string>             - Search Google
   !i <string>             - Search Google Images
   !m <string>             - Search Google Maps
   !synonyms <string>      - Search thesaurus.com
 
-Learn more on duckduckgo - https://duckduckgo.com/?q=!bang
+Learn more about Duckduckgo's bang search - https://duckduckgo.com/?q=!bang
 
 
 .. vim: set et ts=2 sw=2 sts=2:
