@@ -26,9 +26,10 @@ Help
 Here are some commands::
 
   @r[egister]             - Will bring you to the register dialog
-  @l[ogin] [username]     - Will bring you to the login dialog
+  @logi[n] [<username>]   - Will bring you to the login dialog
+  @logo[ut]               - Log out
   @h[elp]                 - Show this help information
-  #<label>                - Go to favorite with label
+  #<label>                - Go to favorite with <label>
 
 Duckduckgo.com bang syntax search::
 
