@@ -49,7 +49,7 @@ input {
     color: white;
     background-color: #FF4400;
 }
-#menu {
+#menu, #logindetails {
     font-size: 12px;
 }
 #content {

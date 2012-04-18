@@ -91,13 +91,15 @@ $csrf_token = $tpl->get_csrf_token();
 
       <div id="menu">
         <small>type '@help' to get started</small><br>
+      </div>
+
+      <div id="logindetails">
         <?php if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']): ?>
           <small>logged in as <?php echo $_SESSION['username'] ?></small>
         <?php else: ?>
           <small>not logged in</small>
         <?php endif ?>
-
-      </div><!-- #menu -->
+      </div>
 
       <div id="content">
         <?php echo $content ?>
