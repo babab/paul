@@ -34,31 +34,51 @@ $csrf_token = $tpl->get_csrf_token();
   </head>
   <body>
     <div id="container">
-    <h1><a href="<?php echo $base_url ?>">springwhiz</a></h1>
+      <h1><a href="<?php echo $base_url ?>/">springwhiz</a></h1>
 
       <?php if (!isset($cmd) || $cmd != 'login'): ?>
         <p id="s0">enter query</p>
       <?php endif ?>
 
+      <?php if (isset($_SESSION['error']) && !empty($_SESSION['error'])): ?>
+        <p>
+          <span class="warn">Warning </span><?php echo $_SESSION['error'] ?>
+          <br>
+        </p>
+      <?php endif ?>
+
       <p id="s1">press enter to submit</p>
 
       <?php if (isset($cmd) && ($cmd == 'login' || $cmd == 'register')): ?>
-        <form method="post"
-              action="<?php echo $base_url ?>/query.php">
-          Username<br>
-          <?php if (!empty($_SESSION['username'])): ?>
-            <input type="text" id="username" name="username"
-                   value="<?php echo $_SESSION['username'] ?>"><br><br>
-          <?php else: ?>
-            <input type="text" id="username" name="username"><br><br>
-          <?php endif ?>
-          Password<br>
-          <input type="password" id="password" name="password"><br><br>
-          <?php if ($cmd == 'register'): ?>
-            Password again<br>
-            <input type="password" id="password2" name="password2"><br><br>
-          <?php endif ?>
-          <input type="submit" id="submit" name="submit" value="Login">
+        <?php if (!isset($_SESSION['logged_in']) || !$_SESSION['logged_in']): ?>
+          <form method="post"
+                action="<?php echo $base_url ?>/query.php">
+            username<br>
+            <?php if (!empty($_SESSION['username_inp'])): ?>
+              <input type="text" id="username" name="username"
+                     value="<?php echo $_SESSION['username_inp'] ?>"><br><br>
+            <?php else: ?>
+              <input type="text" id="username" name="username"><br><br>
+            <?php endif ?>
+            password<br>
+            <input type="password" id="password" name="password"><br><br>
+            <?php if ($cmd == 'register'): ?>
+              password again<br>
+              <input type="password" id="password2" name="password2"><br><br>
+            <?php endif ?>
+            <input type="hidden" id="csrf_token" name="csrf_token"
+                   value="<?php echo $csrf_token ?>">
+            <input type="submit" id="submit" name="submit"
+                   value="<?php echo $cmd ?>">
+        <?php else: ?>
+          <p>
+            you are already logged in as
+            <?php echo $_SESSION['username'] ?><br><br>
+            <a href="<?php echo $base_url ?>/">
+              return to <?php echo $base_url ?>/
+            </a>
+          </p>
+        <?php endif ?>
       <?php else: ?>
         <form method="get"
               action="<?php echo $base_url ?>/query.php">
@@ -70,7 +90,13 @@ $csrf_token = $tpl->get_csrf_token();
       <br>
 
       <div id="menu">
-        <small>type '@help' to get started</small>
+        <small>type '@help' to get started</small><br>
+        <?php if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']): ?>
+          <small>logged in as <?php echo $_SESSION['username'] ?></small>
+        <?php else: ?>
+          <small>not logged in</small>
+        <?php endif ?>
+
       </div><!-- #menu -->
 
       <div id="content">

@@ -59,8 +59,7 @@ input {
     width: 85%;
     font-size: 12px;
 }
-#content span.warn {
-    font-size: 13px;
+span.warn {
     color: red;
 }
 #footer {

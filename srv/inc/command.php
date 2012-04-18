@@ -50,9 +50,9 @@ class command {
 
         if ($command == 'login') {
             if (!empty($args[1]))
-                $_SESSION['username'] = $args[1];
+                $_SESSION['username_inp'] = $args[1];
             else
-                $_SESSION['username'] = '';
+                $_SESSION['username_inp'] = '';
         }
 
         switch ($command) {

@@ -15,6 +15,7 @@
 
 require_once 'inc/lib/sprwz.php';
 require_once 'inc/lib/dbhandler.php';
+require_once 'inc/lib/user.php';
 require_once 'inc/bookmark.php';
 
 class Query extends sprwz
@@ -25,6 +26,13 @@ class Query extends sprwz
     {
         parent::__construct();
         session_start();
+
+        if (!empty($_POST)) {
+            $user = new user;
+            $user->authenticate_form();
+            header("Location: $this->base_url");
+            exit;
+        }
 
         $this->query = urldecode(trim($_GET['q']));
 
