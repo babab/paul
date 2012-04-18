@@ -20,11 +20,11 @@ class command {
         'he'        => 'help',
         'hel'       => 'help',
         'help'      => 'help',
-        'l'         => 'login',
-        'lo'        => 'login',
-        'log'       => 'login',
         'logi'      => 'login',
         'login'     => 'login',
+        'logo'      => 'logout',
+        'logou'     => 'logout',
+        'logout'    => 'logout',
         'r'         => 'register',
         're'        => 'register',
         'reg'       => 'register',
@@ -48,19 +48,24 @@ class command {
         else
             $command = '_doesnotexist';
 
-        if ($command == 'login') {
-            if (!empty($args[1]))
-                $_SESSION['username_inp'] = $args[1];
-            else
-                $_SESSION['username_inp'] = '';
-        }
-
         switch ($command) {
         case 'help':
             return array('help', file_get_contents('./html/help.html'));
             break;
         case 'login':
+            if (!empty($args[1]))
+                $_SESSION['username_inp'] = $args[1];
+            else
+                $_SESSION['username_inp'] = '';
+
             return array('login', ' ');
+            break;
+        case 'logout':
+            unset($_SESSION['username_inp']);
+            unset($_SESSION['username']);
+            unset($_SESSION['error']);
+            unset($_SESSION['logged_in']);
+            return array('logout', ' ');
             break;
         case 'register':
             $_SESSION['username'] = '';
