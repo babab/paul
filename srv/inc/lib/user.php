@@ -16,7 +16,6 @@
 final class user extends sprwz
 {
     private $db;
-    private $user;
     private $username;
     private $salt;
     private $password;
@@ -34,12 +33,13 @@ final class user extends sprwz
 
         $q = "INSERT INTO _T_users (username, password, salt, last_seen)
                 VALUES (
-                    '$username',
+                    '$this->username',
                     '$this->password',
                     '$this->salt',
                     '" . time() . "'
                 )";
         $this->db->query($q);
+        return true;
     }
 
     public function authenticate_form()
@@ -53,7 +53,7 @@ final class user extends sprwz
         $_SESSION['error'] = '';
         $_SESSION['logged_in'] = false;
 
-        $username = filter_input(INPUT_POST, 'username',
+        $this->username = filter_input(INPUT_POST, 'username',
                 FILTER_SANITIZE_STRING);
         $password = filter_input(INPUT_POST, 'password',
                 FILTER_SANITIZE_STRING);
@@ -61,12 +61,11 @@ final class user extends sprwz
             $password2 = filter_input(INPUT_POST, 'password2',
                     FILTER_SANITIZE_STRING);
 
-        $this->username = $username;
         $this->_makesalt();
         $this->_makepassword($password);
 
-        if ($this->user = $this->fetch_user($username)) {
-            if ($this->user['password'] === $this->password) {
+        if ($user = $this->fetch_user()) {
+            if ($user['password'] === $this->password) {
                 $_SESSION['username'] = $this->username;
                 $_SESSION['logged_in'] = true;
                 return true;
@@ -77,15 +76,16 @@ final class user extends sprwz
         return false;
     }
 
-    public function fetch_user($username)
+    public function fetch_user()
     {
-        $q = "SELECT * FROM _T_users WHERE username = '$username'";
+        $q = "SELECT * FROM _T_users WHERE username = '$this->username'";
         return $this->db->qfetch_first($q);
     }
 
-    public function user_exists($username)
+    public function user_exists()
     {
-        $q = "SELECT last_seen FROM _T_users WHERE username = '$username'";
+        $q = "SELECT last_seen FROM _T_users "
+                . "WHERE username = '$this->username'";
         return $this->db->qfetch_first($q) !== false;
     }
 
