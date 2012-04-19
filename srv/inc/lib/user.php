@@ -31,6 +31,9 @@ final class user extends sprwz
         $this->_makesalt();
         $this->_makepassword($password);
 
+        if ($this->user_exists())
+            return false;
+
         $q = "INSERT INTO _T_users (username, password, salt, last_seen)
                 VALUES (
                     '$this->username',
@@ -57,9 +60,31 @@ final class user extends sprwz
                 FILTER_SANITIZE_STRING);
         $password = filter_input(INPUT_POST, 'password',
                 FILTER_SANITIZE_STRING);
-        if (isset($_POST['password2']))
+        if (isset($_POST['password2'])) {
             $password2 = filter_input(INPUT_POST, 'password2',
                     FILTER_SANITIZE_STRING);
+
+            if ($password !== $password2) {
+                $_SESSION['error'] = 'Passwords do not match, please '
+                        . 'try again.';
+                $url = "$this->base_url/?cmd=register";
+                header("Location: $url");
+                exit;
+            }
+
+            if ($this->add($this->username, $password)) {
+                $_SESSION['username'] = $this->username;
+                $_SESSION['logged_in'] = true;
+                return true;
+            }
+            else {
+                $_SESSION['error'] = 'This username is already taken, please '
+                        . 'try another one.';
+                $url = "$this->base_url/?cmd=login $this->username";
+                header("Location: $url");
+                exit;
+            }
+        }
 
         $this->_makesalt();
         $this->_makepassword($password);
