@@ -27,9 +27,9 @@ class dbhandler extends sprwz {
         $this->db_conn = mysql_connect($this->db_host.':'.$this->db_port,
                                        $this->db_user, $this->db_pass);
         if (!$this->db_conn)
-            die ("Connection error: ". mysql_error());
+            self::error("Connection error: ". mysql_error());
         if (!mysql_select_db($this->db_name, $this->db_conn)) {
-            die ("Error connecting to database '" . $this->db_name .
+            self::error("Error connecting to database '" . $this->db_name .
                 "': ". mysql_error());
         }
         return $this;
@@ -39,7 +39,7 @@ class dbhandler extends sprwz {
     {
         $q = str_replace('_T_', $this->db_prefix, $query);
         if (!$this->db_query = mysql_query($q, $this->db_conn))
-            die ("Query error: ". mysql_error());
+            self::error("Query error: ". mysql_error());
 
         return $this;
     }
