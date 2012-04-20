@@ -134,3 +134,7 @@ $csrf_token = $tpl->get_csrf_token();
 
   </body>
 </html>
+<?php
+$_SESSION['username_inp'] = '';
+$_SESSION['error'] = '';
+?>
