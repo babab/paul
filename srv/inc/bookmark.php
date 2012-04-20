@@ -16,24 +16,15 @@
 class bookmark {
 
     private $db;
-    private $exists;
 
     public function __construct($bm)
     {
         $this->db = new dbhandler;
 
-        if (empty($bm)) {
-            $this->exists = false;
-        }
-        else {
+        if (!empty($bm)) {
             $test_url = "http://www.$bm.com";
             header("Location: $test_url");
             exit;
         }
-    }
-
-    public function doesNotExist()
-    {
-            return $this->exists == false;
     }
 }
