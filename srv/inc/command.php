@@ -13,9 +13,15 @@
 # ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
+require_once 'inc/lib/sprwz.php';
+require_once 'inc/lib/dbhandler.php';
+require_once 'inc/bookmark.php';
+
 class command {
 
     public static $commandlist = array(
+        'bm'        => 'bookmark',
+        'bookmark'  => 'bookmark',
         'h'         => 'help',
         'he'        => 'help',
         'hel'       => 'help',
@@ -51,6 +57,22 @@ class command {
         switch ($command) {
         case 'help':
             return array('help', file_get_contents('./html/help.html'));
+            break;
+        case 'bookmark':
+            if (!isset($_SESSION['logged_in'])
+                    || $_SESSION['logged_in'] == false) {
+                return array('bookmark', 'You have to be logged in before '
+                        . 'you can add bookmarks');
+            }
+
+            if (isset($args[2])) {
+                $bm = new bookmark;
+                $bm->add($_SESSION['username'], $args[1], $args[2]);
+                return array('bookmark', 'Succesfully added bookmark');
+            }
+            else {
+                return array('help', file_get_contents('./html/help.html'));
+            }
             break;
         case 'login':
             if (!empty($args[1]))
