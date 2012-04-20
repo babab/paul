@@ -72,4 +72,9 @@ class dbhandler extends sprwz {
         else
             return false;
     }
+
+    public function escape($input)
+    {
+        return mysql_real_escape_string(strip_tags($input));
+    }
 }
