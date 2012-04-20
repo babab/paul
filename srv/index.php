@@ -123,7 +123,7 @@ $csrf_token = $tpl->get_csrf_token();
     <?php if (isset($cmd) && $cmd == 'login'): ?>
       <script type="text/javascript">
         $(document).ready(function(){
-          <?php if (empty($_SESSION['username'])): ?>
+          <?php if (empty($_SESSION['username_inp'])): ?>
             $("#username").focus();
           <?php else: ?>
             $("#password").focus();
