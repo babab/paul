@@ -78,9 +78,10 @@ final class user extends sprwz
                 return true;
             }
             else {
-                $_SESSION['error'] = 'This username is already taken, please '
+                $_SESSION['error'] = 'That username is already taken, please '
                         . 'try another one.';
-                $url = "$this->base_url/?cmd=login $this->username";
+                $_SESSION['username_inp'] = $this->username;
+                $url = "$this->base_url/?cmd=register $this->username";
                 header("Location: $url");
                 exit;
             }

@@ -120,7 +120,7 @@ $csrf_token = $tpl->get_csrf_token();
       </script>
     <?php endif ?>
 
-    <?php if (isset($cmd) && $cmd == 'login'): ?>
+    <?php if (isset($cmd) && ($cmd == 'login' || $cmd == 'register')): ?>
       <script type="text/javascript">
         $(document).ready(function(){
           <?php if (empty($_SESSION['username_inp'])): ?>
