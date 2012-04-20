@@ -108,6 +108,16 @@ final class user extends sprwz
         return $this->db->qfetch_first($q);
     }
 
+    public function id($username)
+    {
+        if (empty($username))
+            return false;
+
+        $q = "SELECT user_id FROM _T_users WHERE username = '$username'";
+        if ($res = $this->db->qfetch_first($q))
+            return (int) $res['user_id'];
+    }
+
     public function user_exists()
     {
         $q = "SELECT last_seen FROM _T_users "
