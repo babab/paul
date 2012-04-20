@@ -17,14 +17,54 @@ class bookmark {
 
     private $db;
 
-    public function __construct($bm)
+    public function __construct()
     {
         $this->db = new dbhandler;
+    }
 
-        if (!empty($bm)) {
-            $test_url = "http://www.$bm.com";
-            header("Location: $test_url");
-            exit;
+    public function add($username, $label, $url)
+    {
+        $this->username = $username;
+
+        if ($this->fetch($username, $label)) {
+            $_SESSION['error'] = 'A bookmark for this label already exists.';
+            return false;
         }
+
+        $user = new user;
+        $user_id = $user->id($username);
+
+        $q = "INSERT INTO _T_bookmarks (user_id, label, url)
+            VALUES (
+                '".$this->db->escape($user_id)."',
+                '".$this->db->escape($label)."',
+                '".$this->db->escape($url)."'
+            )";
+        $this->db->query($q);
+        return true;
+    }
+
+    public function fetch($username, $label)
+    {
+        $q = "SELECT url FROM _T_users "
+            . "WHERE username = '$username'"
+            . "AND label = $label";
+        return $this->db->qfetch_first($q);
+    }
+
+    public function install()
+    {
+        $this->db->query("
+            CREATE TABLE IF NOT EXISTS _T_bookmarks (
+                bookmark_id     INT(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                user_id         INT(10) NOT NULL UNIQUE,
+                label           VARCHAR(100) NOT NULL,
+                url             VARCHAR(4096) NOT NULL
+            ) ENGINE = InnoDB");
+
+        $this->db->query("
+            ALTER TABLE _T_bookmarks ADD FOREIGN KEY (user_id)
+            REFERENCES _T_users(user_id)
+            ON DELETE CASCADE ON UPDATE NO ACTION");
     }
 }
