@@ -118,7 +118,7 @@ final class user extends sprwz
     public function install()
     {
         $this->db->query("
-            CREATE TABLE _T_users (
+            CREATE TABLE IF NOT EXISTS _T_users (
                 user_id         INT(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,
                 username        VARCHAR(100) NOT NULL,
                 password        VARCHAR(512) NOT NULL,
