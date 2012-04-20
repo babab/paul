@@ -45,38 +45,22 @@ class sprwz {
 
     public function __construct()
     {
-        $conf = parse_ini_file('../config', true);
+        $conf = parse_ini_file('../config');
 
         if (empty($conf))
             $this->error("Could not load config file. Please copy "
                     . "'config.example' to 'config' and edit it.");
 
-        $this->base_url = $conf['main']['base_url'];
-        $this->secret_key = $conf['main']['secret_key'];
-        $this->prefix_command = $conf['core']['prefix_command'];
-        $this->prefix_bookmark = $conf['core']['prefix_bookmark'];
-        $this->search_engine_url = $conf['core']['search_engine_url'];
+        foreach (self::$settings as $s) {
+            $this->$s = $conf[$s];
 
-        $this->db_host = $conf['db']['host'];
-        $this->db_port = $conf['db']['port'];
-        $this->db_name = $conf['db']['name'];
-        $this->db_user = $conf['db']['user'];
-        $this->db_pass = $conf['db']['pass'];
-        $this->db_prefix = $conf['db']['prefix'];
-
-        $this->checkconf();
+            if (empty($this->$s))
+                self::error("Could not load the $s setting from config file.");
+        }
     }
 
     public static function error($errormsg)
     {
         die("<p><strong style=\"color:red\">Error</strong> $errormsg");
-    }
-
-    public function checkconf()
-    {
-        foreach (self::$settings as $s) {
-            if (empty($this->$s))
-                self::error("Could not load the $s setting from config file.");
-        }
     }
 }
