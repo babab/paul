@@ -71,6 +71,7 @@ class command {
                     return array('bookmark', 'Succesfully added bookmark');
             }
 
+            $_SESSION['error'] = 'Invalid syntax for bookmark command';
             return array('help', file_get_contents('./html/help.html'));
             break;
         case 'login':
