@@ -46,8 +46,7 @@ class Query extends sprwz
     public function handle()
     {
         if ($cmd = $this->command()) {
-            $location = sprintf("%s/?cmd=%s&q=%s",
-                    $this->base_url, $cmd, $this->query);
+            $location = sprintf("%s/?cmd=%s", $this->base_url, $cmd);
             header("Location: $location");
             exit;
         }
