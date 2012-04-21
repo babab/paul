@@ -13,6 +13,10 @@
 # ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
+require_once 'inc/lib/sprwz.php';
+require_once 'inc/lib/dbhandler.php';
+require_once 'inc/lib/user.php';
+
 class bookmark {
 
     private $db;
@@ -26,13 +30,13 @@ class bookmark {
     {
         $this->username = $username;
 
-        if ($this->fetch($username, $label)) {
+        $user = new user;
+        $user_id = $user->id($username);
+
+        if ($this->fetch($user_id, $label)) {
             $_SESSION['error'] = 'A bookmark for this label already exists.';
             return false;
         }
-
-        $user = new user;
-        $user_id = $user->id($username);
 
         $q = "INSERT INTO _T_bookmarks (user_id, label, url)
             VALUES (
@@ -44,11 +48,11 @@ class bookmark {
         return true;
     }
 
-    public function fetch($username, $label)
+    public function fetch($user_id, $label)
     {
-        $q = "SELECT url FROM _T_users "
-            . "WHERE username = '$username'"
-            . "AND label = $label";
+        $q = "SELECT url FROM _T_bookmarks "
+            . "WHERE user_id = $user_id "
+            . "AND label = '$label'";
         return $this->db->qfetch_first($q);
     }
 
@@ -57,7 +61,7 @@ class bookmark {
         $this->db->query("
             CREATE TABLE IF NOT EXISTS _T_bookmarks (
                 bookmark_id     INT(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                user_id         INT(10) NOT NULL UNIQUE,
+                user_id         INT(10) NOT NULL,
                 label           VARCHAR(100) NOT NULL,
                 url             VARCHAR(4096) NOT NULL
             ) ENGINE = InnoDB");

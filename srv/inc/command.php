@@ -67,12 +67,11 @@ class command {
 
             if (isset($args[2])) {
                 $bm = new bookmark;
-                $bm->add($_SESSION['username'], $args[1], $args[2]);
-                return array('bookmark', 'Succesfully added bookmark');
+                if ($bm->add($_SESSION['username'], $args[1], $args[2]))
+                    return array('bookmark', 'Succesfully added bookmark');
             }
-            else {
-                return array('help', file_get_contents('./html/help.html'));
-            }
+
+            return array('help', file_get_contents('./html/help.html'));
             break;
         case 'login':
             if (!empty($args[1]))
