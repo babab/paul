@@ -23,22 +23,34 @@ You are encouraged to run it on your own (local) webserver.
 Help
 ====
 
-Here are some commands::
+Basic commands::
 
-  @r[egister]             - Will bring you to the register dialog
-  @logi[n] [<username>]   - Will bring you to the login dialog
-  @logo[ut]               - Log out
-  @h[elp]                 - Show this help information
-  #<label>                - Go to favorite with <label>
+  command                      alias   description
+  ---------------------------- ------- ---------------------------------------
+  @register                    @reg    Will bring you to the register dialog
+  @login [<username>]          @li     Will bring you to the login dialog
+  @logout                      @lo     Log out
+  @help                        @h      Show this help information
+  @bookmark <subcommand>       @bm     Execute a bookmark command
+
+Bookmark commands::
+
+  command                              description
+  ------------------------------------ ---------------------------------------
+  #<label>                             Go to bookmark with <label>
+  @bookmark add <label> <url>          Add bookmark
+  @bookmark list                       List all bookmarks
 
 Duckduckgo.com bang syntax search::
 
-  \<string>               - Browse to 1st result for string
-  !yt <string>            - Search YouTube
-  !g <string>             - Search Google
-  !i <string>             - Search Google Images
-  !m <string>             - Search Google Maps
-  !synonyms <string>      - Search thesaurus.com
+  bang                                 description
+  ------------------------------------ ---------------------------------------
+  \<string>                            Browse to 1st result for string
+  !yt <string>                         Search YouTube
+  !g <string>                          Search Google
+  !i <string>                          Search Google Images
+  !m <string>                          Search Google Maps
+  !synonyms <string>                   Search thesaurus.com
 
 Learn more about Duckduckgo's bang search - https://duckduckgo.com/?q=!bang
 

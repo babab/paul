@@ -22,20 +22,36 @@
 </p>
 
 <pre>
-<strong>Here are some commands</strong>
-@r[egister]             - Will bring you to the register dialog
-@logi[n] [&lt;username&gt;]   - Will bring you to the login dialog
-@logo[ut]               - Log out
-@h[elp]                 - Show this help information
-#&lt;label&gt;                - Go to favorite with &lt;label&gt;
+<strong>Basic commands</strong>
+
+command                      alias   description
+---------------------------- ------- ---------------------------------------
+@register                    @reg    Will bring you to the register dialog
+@login [&lt;username&gt;]          @li     Will bring you to the login dialog
+@logout                      @lo     Log out
+@help                        @h      Show this help information
+@bookmark &lt;subcommand&gt;       @bm     Execute a bookmark command
+
+
+<strong>Bookmark commands</strong>
+
+command                              description
+------------------------------------ ---------------------------------------
+#&lt;label&gt;                             Go to bookmark with &lt;label&gt;
+@bookmark add &lt;label&gt; &lt;url&gt;          Add bookmark
+@bookmark list                       List all bookmarks
+
 
 <strong>Duckduckgo.com bang syntax search</strong>
-\&lt;string&gt;               - Browse to 1st result for string
-!yt &lt;string&gt;            - Search YouTube
-!g &lt;string&gt;             - Search Google
-!i &lt;string&gt;             - Search Google Images
-!m &lt;string&gt;             - Search Google Maps
-!synonyms &lt;string&gt;      - Search thesaurus.com
+
+bang                                 description
+------------------------------------ ---------------------------------------
+\&lt;string&gt;                            Browse to 1st result for string
+!yt &lt;string&gt;                         Search YouTube
+!g &lt;string&gt;                          Search Google
+!i &lt;string&gt;                          Search Google Images
+!m &lt;string&gt;                          Search Google Maps
+!synonyms &lt;string&gt;                   Search thesaurus.com
 
 For more info on Duckduckgo's bang search abilities enter '!bang' or visit
 <a href="https://duckduckgo.com/?q=!bang">this link</a>
