@@ -75,6 +75,13 @@ class command {
                         return false;
                 }
                 break;
+            case 'list':
+                $bm = new bookmark;
+                if ($list = $bm->htmlList($_SESSION['username']))
+                    return array('bookmark', $list);
+                else
+                    return false;
+                break;
             }
 
             $_SESSION['error'] = 'Invalid syntax for bookmark command';

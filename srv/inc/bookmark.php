@@ -56,6 +56,13 @@ class bookmark {
         return $this->db->qfetch_first($q);
     }
 
+    public function fetch_all($user_id)
+    {
+        $q = "SELECT * FROM _T_bookmarks "
+            . "WHERE user_id = $user_id";
+        return $this->db->qfetch($q);
+    }
+
     public function gotoIfFound($username, $label)
     {
         $user = new user;
@@ -66,6 +73,38 @@ class bookmark {
             exit;
         }
         return false;
+    }
+
+    public function htmlList($username)
+    {
+        $user = new user;
+        $user_id = $user->id($username);
+
+        if (!$bookmarks = $this->fetch_all($user_id)) {
+            $_SESSION['error'] = 'You do not have any bookmarks';
+            return false;
+        }
+
+        $list = '<h1>Bookmarks</h1>
+                <table id="bookmarks" class="list">
+                  <thead>
+                    <tr>
+                      <th>label</th>
+                      <th>url</th>
+                    </tr>
+                  </thead>
+                  <tbody>';
+
+        foreach ($bookmarks as $bm) {
+            $list .= '<tr>
+                          <td>'.$bm['label'].'</td>
+                          <td>
+                            <a href="'.$bm['url'].'">'.$bm['url'].'</a>
+                          </td>
+                          </tr>';
+        }
+        $list .= '</tbody></table>';
+        return $list;
     }
 
     public function install()
