@@ -34,7 +34,12 @@ class bookmark {
         $user_id = $user->id($username);
 
         if ($this->fetch($user_id, $label)) {
-            $_SESSION['error'] = 'A bookmark for that label already exists.';
+            $_SESSION['error'] = 'A bookmark for that label already exists';
+            return false;
+        }
+
+        if (!$url = $this->_validateUrl($url)) {
+            $_SESSION['error'] = 'Invalid url for bookmark';
             return false;
         }
 
@@ -121,5 +126,13 @@ class bookmark {
             ALTER TABLE _T_bookmarks ADD FOREIGN KEY (user_id)
             REFERENCES _T_users(user_id)
             ON DELETE CASCADE ON UPDATE NO ACTION");
+    }
+
+    public function _validateUrl($url)
+    {
+        if (strpos($url, 'http://') === false
+                && strpos($url, 'https://') === false )
+            $url = "http://$url";
+        return filter_var($url, FILTER_VALIDATE_URL);
     }
 }
