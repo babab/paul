@@ -65,10 +65,16 @@ class command {
                         . 'you can add bookmarks');
             }
 
-            if (isset($args[2])) {
-                $bm = new bookmark;
-                if ($bm->add($_SESSION['username'], $args[1], $args[2]))
-                    return array('bookmark', 'Succesfully added bookmark');
+            switch($args[1]) {
+            case 'add':
+                if (isset($args[3])) {
+                    $bm = new bookmark;
+                    if ($bm->add($_SESSION['username'], $args[2], $args[3]))
+                        return array('bookmark', 'Succesfully added bookmark');
+                    else
+                        return false;
+                }
+                break;
             }
 
             $_SESSION['error'] = 'Invalid syntax for bookmark command';
