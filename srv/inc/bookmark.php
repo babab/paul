@@ -34,7 +34,7 @@ class bookmark {
         $user_id = $user->id($username);
 
         if ($this->fetch($user_id, $label)) {
-            $_SESSION['error'] = 'A bookmark for this label already exists.';
+            $_SESSION['error'] = 'A bookmark for that label already exists.';
             return false;
         }
 
@@ -54,6 +54,18 @@ class bookmark {
             . "WHERE user_id = $user_id "
             . "AND label = '$label'";
         return $this->db->qfetch_first($q);
+    }
+
+    public function gotoIfFound($username, $label)
+    {
+        $user = new user;
+        $user_id = $user->id($username);
+
+        if ($bm = $this->fetch($user_id, $label)) {
+            header("Location: {$bm['url']}");
+            exit;
+        }
+        return false;
     }
 
     public function install()

@@ -41,6 +41,10 @@ class Query extends sprwz
             header("Location: $url");
             exit;
         }
+        else {
+            header("Location: $this->base_url");
+            exit;
+        }
     }
 
     public function handle()
@@ -51,7 +55,19 @@ class Query extends sprwz
             exit;
         }
         else if ($bm_str = $this->bookmark()) {
-            $bm = new bookmark($bm_str);
+            if (!isset($_SESSION['logged_in'])
+                    || $_SESSION['logged_in'] == false) {
+                $_SESSION['error'] = 'You have to be registered and logged in '
+                            . 'for using bookmarks';
+                return false;
+            }
+
+            $bm = new bookmark;
+            if (!$bm->gotoIfFound($_SESSION['username'], $bm_str)) {
+                $_SESSION['error'] = 'That bookmark does not exist';
+                header("Location: $this->base_url/");
+                exit;
+            }
         }
         else
             return $this->query;
