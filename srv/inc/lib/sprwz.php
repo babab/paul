@@ -45,11 +45,17 @@ class sprwz {
 
     public function __construct()
     {
-        $conf = parse_ini_file('../config');
+        global $sprwz_conf;
+        include_once 'config.php';
+
+        if (isset($sprwz_conf))
+            $conf = $sprwz_conf;
+        else
+            $conf = null;
 
         if (empty($conf))
             $this->error("Could not load config file. Please copy "
-                    . "'config.example' to 'config' and edit it.");
+                    . "'config.example.php' to 'config.php' and edit it.");
 
         foreach (self::$settings as $s) {
             $this->$s = $conf[$s];
