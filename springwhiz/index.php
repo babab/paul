@@ -29,8 +29,11 @@ $csrf_token = $tpl->get_csrf_token();
 ?><!doctype html>
 <html>
   <head>
-    <link rel="stylesheet" type="text/css" href="/css/main.css">
-    <script type="text/javascript" src="/js/lib/jquery-1.7.1.min.js"></script>
+    <link rel="stylesheet" type="text/css"
+          href="<?php echo $base_url ?>/css/main.css">
+    <script type="text/javascript"
+            src="<?php echo $base_url ?>/js/lib/jquery-1.7.1.min.js">
+    </script>
   </head>
   <body>
     <div id="container">
@@ -110,7 +113,9 @@ $csrf_token = $tpl->get_csrf_token();
       </div><!-- #footer -->
     </div><!-- #container -->
 
-    <script type="text/javascript" src="/js/main.js"></script>
+    <script type="text/javascript"
+            src="<?php echo $base_url ?>/js/main.js">
+    </script>
     <?php if (!empty($content)): ?>
       <script type="text/javascript">
         $(document).ready(function(){
