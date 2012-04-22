@@ -16,6 +16,7 @@
 require_once 'inc/lib/sprwz.php';
 require_once 'inc/lib/dbhandler.php';
 require_once 'inc/bookmark.php';
+require_once 'inc/notepad.php';
 
 class command {
 
@@ -28,6 +29,8 @@ class command {
         'login'     => 'login',
         'lo'        => 'logout',
         'logout'    => 'logout',
+        'np'        => 'notepad',
+        'notepad'   => 'notepad',
         'reg'       => 'register',
         'register'  => 'register',
         'unknown'   => 'help',
@@ -92,6 +95,18 @@ class command {
             unset($_SESSION['error']);
             unset($_SESSION['logged_in']);
             return array('logout', ' ');
+            break;
+        case 'notepad':
+            if (!isset($_SESSION['logged_in'])
+                    || $_SESSION['logged_in'] == false) {
+                return array('notepad', 'You have to be logged in before '
+                        . 'you can use the notepad');
+            }
+            $notepad = new notepad($_SESSION['username']);
+            if ($np = $notepad->html($_SESSION['username']))
+                return array('notepad', $np);
+            else
+                return false;
             break;
         case 'register':
             $_SESSION['username'] = '';

@@ -17,11 +17,18 @@ require_once 'inc/lib/sprwz.php';
 require_once 'inc/lib/dbhandler.php';
 require_once 'inc/lib/user.php';
 require_once 'inc/bookmark.php';
+require_once 'inc/notepad.php';
 
 echo 'Installing users table<br>';
 $user = new user;
 $user->install();
+
 echo 'Installing bookmarks table<br>';
 $bm = new bookmark;
 $bm->install();
+
+echo 'Installing notepad table<br>';
+$notepad = new notepad(false);
+$notepad->install();
+
 echo 'Done';
