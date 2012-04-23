@@ -55,7 +55,7 @@ $csrf_token = $tpl->get_csrf_token();
       <?php if (isset($cmd) && ($cmd == 'login' || $cmd == 'register')): ?>
         <?php if (!isset($_SESSION['logged_in']) || !$_SESSION['logged_in']): ?>
           <form method="post"
-                action="<?php echo $base_url ?>/query.php">
+                action="<?php echo $base_url ?>/query.php?m=user">
             username<br>
             <?php if (!empty($_SESSION['username_inp'])): ?>
               <input type="text" id="username" name="username"

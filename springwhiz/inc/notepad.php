@@ -17,34 +17,69 @@ require_once 'inc/lib/sprwz.php';
 require_once 'inc/lib/dbhandler.php';
 require_once 'inc/lib/user.php';
 
-class notepad {
+class notepad extends sprwz {
 
     private $db;
     private $notepad;
+    private $user_id;
 
     public function __construct($username, $fetch = true)
     {
+        parent::__construct();
         $this->db = new dbhandler;
 
         if ($fetch) {
             $user = new user;
-            $user_id = $user->id($username);
+            $this->user_id = $user->id($username);
         }
 
-        if ($fetch && !$this->notepad = $this->fetch($user_id)) {
+        if ($fetch && !$this->notepad = $this->fetch($this->user_id)) {
             $q = "INSERT INTO _T_notepad (user_id, content)
                 VALUES (
-                    '".$this->db->escape($user_id)."',
+                    '".$this->db->escape($this->user_id)."',
                     '".'This is your notepad, edit and save notes and access'
-                    . "them everywhere'
+                    . " them everywhere...'
                 )";
             $this->db->query($q);
         }
     }
 
+    public function update()
+    {
+        $q = "UPDATE _T_notepad SET content = "
+                . "'".$this->db->escape($this->notepad)."'
+                WHERE user_id = $this->user_id";
+        $this->db->query($q);
+    }
+
+    public function authenticate_form()
+    {
+        if (empty($_POST))
+            return false;
+
+        if (!$_SESSION['logged_in'] || empty($this->user_id))
+            return false;
+
+        $_SESSION['error'] = '';
+
+        $this->notepad = htmlentities($_POST['notepad']);
+
+        if (!empty($this->notepad))
+            $this->update();
+    }
+
     public function html()
     {
-        return $this->notepad;
+        $html = '<h1>Notepad</h1>
+                <form method="post"
+                action="' . $this->base_url .'/query.php?m=notepad">
+                <textarea id="notepad" name="notepad" rows="20">'
+                  . $this->notepad . '</textarea>
+                  <br><br>
+                  <input type="submit" id="submit" name="submit" value="save">
+                </form>';
+        return $html;
+
     }
 
     public function fetch($user_id)

@@ -28,7 +28,7 @@ $bm = new bookmark;
 $bm->install();
 
 echo 'Installing notepad table<br>';
-$notepad = new notepad(false);
+$notepad = new notepad(null, false);
 $notepad->install();
 
 echo 'Done';
