@@ -64,7 +64,7 @@ class bookmark {
     public function fetch_all($user_id)
     {
         $q = "SELECT * FROM _T_bookmarks "
-            . "WHERE user_id = $user_id";
+            . "WHERE user_id = $user_id ORDER BY label ASC";
         return $this->db->qfetch($q);
     }
 
