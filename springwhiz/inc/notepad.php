@@ -76,7 +76,7 @@ class notepad extends sprwz {
                   . $this->notepad . '</textarea>
                   <br><br>
                   <div class="center">
-                      <input type="submit" id="submit" name="submit" value="save">
+                   <input type="submit" id="submit" name="submit" value="save">
                   </div>
                 </form>';
         return $html;

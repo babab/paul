@@ -48,9 +48,6 @@ $csrf_token = $tpl->get_csrf_token();
         <br><br>
       </div>
 
-      <?php if (!isset($_GET['cmd'])): ?>
-        <p id="s0">enter query</p>
-      <?php endif ?>
 
       <?php if (isset($_SESSION['error']) && !empty($_SESSION['error'])): ?>
         <p>
@@ -59,24 +56,26 @@ $csrf_token = $tpl->get_csrf_token();
         </p>
       <?php endif ?>
 
-      <p id="s1">press enter to submit</p>
-
       <?php if (isset($cmd) && ($cmd == 'login' || $cmd == 'register')): ?>
         <?php if (!isset($_SESSION['logged_in']) || !$_SESSION['logged_in']): ?>
           <form method="post"
                 action="<?php echo $base_url ?>/query.php?m=user">
-            username<br>
             <?php if (!empty($_SESSION['username_inp'])): ?>
               <input type="text" id="username" name="username"
+                     placeholder="username"
                      value="<?php echo $_SESSION['username_inp'] ?>"><br><br>
             <?php else: ?>
-              <input type="text" id="username" name="username"><br><br>
+              <input type="text" id="username" name="username"
+                     placeholder="username">
+              <br><br>
             <?php endif ?>
-            password<br>
-            <input type="password" id="password" name="password"><br><br>
+            <input type="password" id="password" name="password"
+                   placeholder="password">
+            <br><br>
             <?php if ($cmd == 'register'): ?>
-              password again<br>
-              <input type="password" id="password2" name="password2"><br><br>
+              <input type="password" id="password2" name="password2"
+                   placeholder="password (check)">
+              <br><br>
             <?php endif ?>
             <input type="hidden" id="csrf_token" name="csrf_token"
                    value="<?php echo $csrf_token ?>">
@@ -94,7 +93,9 @@ $csrf_token = $tpl->get_csrf_token();
       <?php else: ?>
         <form method="get"
               action="<?php echo $base_url ?>/query.php">
-          <input type="text" id="q" name="q" value="<?php echo $q ?>">
+          <input type="text" id="q" name="q"
+                 placeholder="enter search string or command"
+                 value="<?php echo $q ?>">
           <input type="hidden" id="csrf_token" name="csrf_token"
                  value="<?php echo $csrf_token ?>">
       <?php endif ?>
