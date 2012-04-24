@@ -39,15 +39,22 @@ $csrf_token = $tpl->get_csrf_token();
     <div id="container">
       <div id="header"><a href="<?php echo $base_url ?>/">springwhiz</a></div>
 
-      <div id="logindetails">
+      <div id="topmenu">
         <?php if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']): ?>
-          <small>logged in as <?php echo $_SESSION['username'] ?></small>
+          <small>
+          <a href="<?php echo $base_url ?>/?cmd=bookmark list">bookmarks</a>
+          | <a href="<?php echo $base_url ?>/?cmd=notepad">notepad</a>
+          | <a href="<?php echo $base_url ?>/?cmd=logout">logout</a>
+          </small>
         <?php else: ?>
-          <small>not logged in</small>
+          <small>
+            not logged in
+            | <a href="<?php echo $base_url ?>/?cmd=login">login</a>
+          </small>
         <?php endif ?>
+        <small> | <a href="<?php echo $base_url ?>/?cmd=help">help</a></small>
         <br><br>
       </div>
-
 
       <?php if (isset($_SESSION['error']) && !empty($_SESSION['error'])): ?>
         <p>
@@ -111,7 +118,12 @@ $csrf_token = $tpl->get_csrf_token();
       </div><!-- #content -->
       <br>
       <div id="footer">
-        <a href="http://code.babab.nl/springwhiz/">springwhiz v0.1</a>
+        <a href="http://code.babab.nl/springwhiz/">springwhiz v0.1</a> |
+        <?php if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']): ?>
+          logged in as <?php echo $_SESSION['username'] ?>
+        <?php else: ?>
+          not logged in
+        <?php endif ?>
       </div><!-- #footer -->
     </div><!-- #container -->
 
