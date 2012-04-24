@@ -37,9 +37,18 @@ $csrf_token = $tpl->get_csrf_token();
   </head>
   <body>
     <div id="container">
-      <h1><a href="<?php echo $base_url ?>/">springwhiz</a></h1>
+      <div id="header"><a href="<?php echo $base_url ?>/">springwhiz</a></div>
 
-      <?php if (!isset($cmd) || $cmd != 'login'): ?>
+      <div id="logindetails">
+        <?php if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']): ?>
+          <small>logged in as <?php echo $_SESSION['username'] ?></small>
+        <?php else: ?>
+          <small>not logged in</small>
+        <?php endif ?>
+        <br><br>
+      </div>
+
+      <?php if (!isset($_GET['cmd'])): ?>
         <p id="s0">enter query</p>
       <?php endif ?>
 
@@ -94,14 +103,6 @@ $csrf_token = $tpl->get_csrf_token();
 
       <div id="menu">
         <small>type '@help' to get started</small><br>
-      </div>
-
-      <div id="logindetails">
-        <?php if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']): ?>
-          <small>logged in as <?php echo $_SESSION['username'] ?></small>
-        <?php else: ?>
-          <small>not logged in</small>
-        <?php endif ?>
       </div>
 
       <div id="content">

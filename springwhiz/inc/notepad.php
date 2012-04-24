@@ -18,7 +18,6 @@ require_once 'inc/lib/dbhandler.php';
 require_once 'inc/lib/user.php';
 
 class notepad extends sprwz {
-
     private $db;
     private $notepad;
     private $user_id;
@@ -76,7 +75,9 @@ class notepad extends sprwz {
                 <textarea id="notepad" name="notepad" rows="20">'
                   . $this->notepad . '</textarea>
                   <br><br>
-                  <input type="submit" id="submit" name="submit" value="save">
+                  <div class="center">
+                      <input type="submit" id="submit" name="submit" value="save">
+                  </div>
                 </form>';
         return $html;
 
