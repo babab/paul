@@ -15,7 +15,12 @@
  */
 
 body {
-    font-family: "Monospace";
+    font-family: "Liberation Mono",
+            "DejaVu Sans Mono",
+            Monaco,
+            "Lucida Console",
+            "Lucida Sans Typewriter",
+            monospace;
     background-color: black;
     color: #FF7700;
 }
