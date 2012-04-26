@@ -108,7 +108,6 @@ class command {
                 return false;
             break;
         case 'register':
-            $_SESSION['username'] = '';
             return array('register', ' ');
             break;
         default:
