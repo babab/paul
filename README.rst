@@ -28,6 +28,7 @@ Basic commands::
   @login [<username>]          @li     Will bring you to the login dialog
   @logout                      @lo     Log out
   @help                        @h      Show this help information
+  @notepad                     @np     Open notepad
   @bookmark <subcommand>       @bm     Execute a bookmark command
 
 Bookmark commands::
