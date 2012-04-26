@@ -14,16 +14,13 @@
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 require_once 'inc/lib/sprwz.php';
-require_once 'inc/lib/dbhandler.php';
 require_once 'inc/lib/user.php';
 
-class bookmark {
-
-    private $db;
+class bookmark extends sprwz {
 
     public function __construct()
     {
-        $this->db = new dbhandler;
+        parent::__construct();
     }
 
     public function add($username, $label, $url)

@@ -14,18 +14,15 @@
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 require_once 'inc/lib/sprwz.php';
-require_once 'inc/lib/dbhandler.php';
 require_once 'inc/lib/user.php';
 
 class notepad extends sprwz {
-    private $db;
     private $notepad;
     private $user_id;
 
     public function __construct($username, $fetch = true)
     {
         parent::__construct();
-        $this->db = new dbhandler;
 
         if ($fetch) {
             $user = new user;

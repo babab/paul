@@ -15,21 +15,22 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-class dbhandler extends sprwz {
+class dbhandler {
+    private $db_prefix;
     private $db_conn;
     private $db_query;
     private $db_res;
 
-    public function __construct()
+    public function __construct($db_name, $db_user, $db_pass, $db_prefix,
+            $db_host = 'localhost', $db_port = 3306)
     {
-        parent::__construct();
-
-        $this->db_conn = mysql_connect($this->db_host.':'.$this->db_port,
-                                       $this->db_user, $this->db_pass);
+        $this->db_prefix = $db_prefix;
+        $this->db_conn = mysql_connect($db_host.':'.$db_port,
+                                       $db_user, $db_pass);
         if (!$this->db_conn)
-            self::error("Connection error: ". mysql_error());
-        if (!mysql_select_db($this->db_name, $this->db_conn)) {
-            self::error("Error connecting to database '" . $this->db_name .
+            sprwz::error("Connection error: ". mysql_error());
+        if (!mysql_select_db($db_name, $this->db_conn)) {
+            sprwz::error("Error connecting to database '" . $db_name .
                 "': ". mysql_error());
         }
         return $this;
@@ -39,7 +40,7 @@ class dbhandler extends sprwz {
     {
         $q = str_replace('_T_', $this->db_prefix, $query);
         if (!$this->db_query = mysql_query($q, $this->db_conn))
-            self::error("Query error: ". mysql_error());
+            sprwz::error("Query error: ". mysql_error());
 
         return $this;
     }

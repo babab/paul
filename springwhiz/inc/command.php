@@ -14,7 +14,6 @@
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 require_once 'inc/lib/sprwz.php';
-require_once 'inc/lib/dbhandler.php';
 require_once 'inc/bookmark.php';
 require_once 'inc/notepad.php';
 

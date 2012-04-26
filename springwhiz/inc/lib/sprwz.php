@@ -15,6 +15,8 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
+require_once 'inc/lib/dbhandler.php';
+
 class sprwz {
     public static $settings = array(
             'base_url',
@@ -22,6 +24,8 @@ class sprwz {
             'prefix_command',
             'prefix_bookmark',
             'search_engine_url',
+            );
+    public static $settings_db = array(
             'db_host',
             'db_port',
             'db_name',
@@ -36,12 +40,7 @@ class sprwz {
     protected $prefix_bookmark;
     protected $search_engine_url;
 
-    protected $db_host;
-    protected $db_port;
-    protected $db_name;
-    protected $db_user;
-    protected $db_pass;
-    protected $db_prefix;
+    protected $db;
 
     public function __construct()
     {
@@ -63,6 +62,20 @@ class sprwz {
             if (empty($this->$s))
                 self::error("Could not load the $s setting from config file.");
         }
+
+        $db_login = array();
+        foreach (self::$settings_db as $s) {
+            $db_login[$s] = $conf[$s];
+
+            if (empty($db_login[$s]))
+                self::error("Could not load the $s setting from config file.");
+        }
+
+        if (!$this->db)
+            $this->db = new dbhandler($db_login['db_name'],
+                    $db_login['db_user'], $db_login['db_pass'],
+                    $db_login['db_prefix'], $db_login['db_host'],
+                    $db_login['db_port']);
     }
 
     public static function error($errormsg)

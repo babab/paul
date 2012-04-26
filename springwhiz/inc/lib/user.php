@@ -15,14 +15,13 @@
 
 final class user extends sprwz
 {
-    private $db;
     private $username;
     private $salt;
     private $password;
 
     public function __construct()
     {
-        $this->db = new dbhandler;
+        parent::__construct();
     }
 
     public function add($username, $password)
