@@ -120,7 +120,12 @@ $csrf_token = $tpl->get_csrf_token();
       <br>
       <div id="footer">
         <a href="https://github.com/babab/springwhiz/">springwhiz v0.1</a>
-        <?php if ($footer) echo "| $footer"; ?>
+        <?php if ($footer) echo "| $footer"; ?> |
+        <?php if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']): ?>
+          logged in as <?php echo $_SESSION['username'] ?>
+        <?php else: ?>
+          not logged in
+        <?php endif ?>
       </div><!-- #footer -->
     </div><!-- #container -->
 
