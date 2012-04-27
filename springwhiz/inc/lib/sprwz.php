@@ -33,12 +33,17 @@ class sprwz {
             'db_pass',
             'db_prefix',
             );
+    public static $settings_optional = array(
+            'footer',
+            );
 
     protected $base_url;
     protected $secret_key;
     protected $prefix_command;
     protected $prefix_bookmark;
     protected $search_engine_url;
+
+    protected $footer;
 
     protected $db;
 
@@ -61,6 +66,10 @@ class sprwz {
 
             if (empty($this->$s))
                 self::error("Could not load the $s setting from config file.");
+        }
+
+        foreach (self::$settings_optional as $s) {
+            $this->$s = $conf[$s];
         }
 
         $db_login = array();

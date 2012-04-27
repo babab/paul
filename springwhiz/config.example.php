@@ -4,6 +4,7 @@
 /* Main settings */
 'base_url'          => 'http://start',
 'secret_key'        => 'E4DgNjZqameRaRmEYdrvETULH3ah4QBM9LCSuPYgWAE4PJQm7y',
+'footer'            => false,
 
 /* Database settings */
 'db_host'           => 'localhost',

@@ -24,6 +24,7 @@ $base_url   = $tpl->get_base_url();
 $cmd        = $tpl->get_cmd();
 $content    = $tpl->get_content();
 $q          = $tpl->get_q();
+$footer     = $tpl->get_footer();
 $csrf_token = $tpl->get_csrf_token();
 
 ?><!doctype html>
@@ -118,12 +119,8 @@ $csrf_token = $tpl->get_csrf_token();
       </div><!-- #content -->
       <br>
       <div id="footer">
-        <a href="http://code.babab.nl/springwhiz/">springwhiz v0.1</a> |
-        <?php if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']): ?>
-          logged in as <?php echo $_SESSION['username'] ?>
-        <?php else: ?>
-          not logged in
-        <?php endif ?>
+        <a href="https://github.com/babab/springwhiz/">springwhiz v0.1</a>
+        <?php if ($footer) echo "| $footer"; ?>
       </div><!-- #footer -->
     </div><!-- #container -->
 

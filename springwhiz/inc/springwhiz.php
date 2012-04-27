@@ -61,6 +61,11 @@ class springwhiz extends sprwz
             return '';
     }
 
+    public function get_footer()
+    {
+        return $this->footer;
+    }
+
     public function get_csrf_token()
     {
         $csrf_token = md5($this->secret_key . mt_rand());
