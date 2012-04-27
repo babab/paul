@@ -35,9 +35,9 @@ final class user extends sprwz
 
         $q = "INSERT INTO _T_users (username, password, salt, last_seen)
                 VALUES (
-                    '$this->username',
-                    '$this->password',
-                    '$this->salt',
+                    '".$this->db->escape($this->username)."',
+                    '".$this->db->escape($this->password)."',
+                    '".$this->db->escape($this->salt)."',
                     '" . time() . "'
                 )";
         $this->db->query($q);
