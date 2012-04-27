@@ -25,7 +25,7 @@ $cmd        = $tpl->get_cmd();
 $content    = $tpl->get_content();
 $q          = $tpl->get_q();
 $footer     = $tpl->get_footer();
-$csrf_token = $tpl->get_csrf_token();
+$token      = $tpl->create_token();
 
 ?><!doctype html>
 <html>
@@ -85,8 +85,8 @@ $csrf_token = $tpl->get_csrf_token();
                    placeholder="password (check)">
               <br><br>
             <?php endif ?>
-            <input type="hidden" id="csrf_token" name="csrf_token"
-                   value="<?php echo $csrf_token ?>">
+            <input type="hidden" id="token" name="token"
+                   value="<?php echo $token ?>">
             <input type="submit" id="submit" name="submit"
                    value="<?php echo $cmd ?>">
         <?php else: ?>
@@ -104,8 +104,6 @@ $csrf_token = $tpl->get_csrf_token();
           <input type="text" id="q" name="q"
                  placeholder="enter search string or command"
                  value="<?php echo $q ?>">
-          <input type="hidden" id="csrf_token" name="csrf_token"
-                 value="<?php echo $csrf_token ?>">
       <?php endif ?>
       </form>
       <br>

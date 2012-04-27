@@ -66,10 +66,10 @@ class springwhiz extends sprwz
         return $this->footer;
     }
 
-    public function get_csrf_token()
+    public function create_token()
     {
-        $csrf_token = md5($this->secret_key . mt_rand());
-        $_SESSION['csrf_token'] = $csrf_token;
-        return $csrf_token;
+        $token = md5($this->secret_key . mt_rand());
+        $_SESSION['token'] = $token;
+        return $token;
     }
 }
