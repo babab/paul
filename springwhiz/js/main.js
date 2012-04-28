@@ -18,7 +18,48 @@ $(document).ready(function(){
     $("#q").show("slow");
     $("#q").focus();
 
-    // $("#btn-help").click(function() {
-    //     $("#content").show();
-    // });
+    menu = document.getElementById('menu');
+
+    $("#q").keyup(function(){
+        q = $("#q").val();
+
+        switch (q[0]) {
+        case sprwz_prefix_command:
+            $("#q").css({
+                'color': '#f70',
+                'background-color': 'black'
+            });
+            menu.innerHTML = "Entering command '" + q.substr(1) + "'";
+            break;
+        case sprwz_prefix_bookmark:
+            $("#q").css({
+                'color': '#f70',
+                'background-color': 'white'
+            });
+            menu.innerHTML = 'Entering a bookmark label..';
+            menu.innerHTML = "Go to bookmark with label '" + q.substr(1) + "'";
+            break;
+        case '!':
+            $("#q").css({
+                'color': 'green',
+                'background-color': 'white'
+            });
+            menu.innerHTML = 'Searching for ' + q.substr(1)
+                    + ' using bang syntax';
+            break;
+        case '\\':
+            $("#q").css({
+                'color': 'green',
+                'background-color': 'white'
+            });
+            menu.innerHTML = 'Go to the first result for ' + q.substr(1);
+            break;
+        default:
+            $("#q").css({
+                'color': 'black',
+                'background-color': 'white'
+            });
+            menu.innerHTML = 'Searching for ' + q;
+        }
+    });
 });

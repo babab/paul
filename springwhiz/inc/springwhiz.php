@@ -66,4 +66,13 @@ class springwhiz extends sprwz
         return $this->footer;
     }
 
+    public function get_prefix_command()
+    {
+        return $this->prefix_command;
+    }
+
+    public function get_prefix_bookmark()
+    {
+        return $this->prefix_bookmark;
+    }
 }

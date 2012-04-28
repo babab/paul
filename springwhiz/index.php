@@ -26,6 +26,8 @@ $content    = $tpl->get_content();
 $q          = $tpl->get_q();
 $footer     = $tpl->get_footer();
 $token      = $tpl->create_token();
+$prefix_command   = $tpl->get_prefix_command();
+$prefix_bookmark  = $tpl->get_prefix_bookmark();
 
 ?><!doctype html>
 <html>
@@ -102,6 +104,7 @@ $token      = $tpl->create_token();
         <form method="get"
               action="<?php echo $base_url ?>/query.php">
           <input type="text" id="q" name="q"
+                 autocomplete="off"
                  placeholder="enter search string or command"
                  value="<?php echo $q ?>">
       <?php endif ?>
@@ -109,8 +112,9 @@ $token      = $tpl->create_token();
       <br>
 
       <div id="menu">
-        <small>type '@help' to get started</small><br>
+        type '@help' to get started
       </div>
+      <br>
 
       <div id="content">
         <?php echo $content ?>
@@ -127,6 +131,12 @@ $token      = $tpl->create_token();
       </div><!-- #footer -->
     </div><!-- #container -->
 
+    <script type="text/javascript">
+      <?php
+        echo "sprwz_prefix_command = '$prefix_command';\n";
+        echo "sprwz_prefix_bookmark = '$prefix_bookmark';\n";
+      ?>
+    </script>
     <script type="text/javascript"
             src="<?php echo $base_url ?>/js/main.js">
     </script>
@@ -134,7 +144,6 @@ $token      = $tpl->create_token();
       <script type="text/javascript">
         $(document).ready(function(){
           $("#content").show();
-          $("#menu").hide();
         });
       </script>
     <?php endif ?>
