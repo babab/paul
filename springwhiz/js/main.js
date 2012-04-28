@@ -29,37 +29,49 @@ $(document).ready(function(){
                 'color': '#f70',
                 'background-color': 'black'
             });
-            menu.innerHTML = "Entering command '" + q.substr(1) + "'";
+            if (!q[1])
+                menu.innerHTML = "Entering command";
+            else
+                menu.innerHTML = "Entering command '" + q.substr(1) + "'";
             break;
         case sprwz_prefix_bookmark:
             $("#q").css({
                 'color': '#f70',
                 'background-color': 'white'
             });
-            menu.innerHTML = 'Entering a bookmark label..';
-            menu.innerHTML = "Go to bookmark with label '" + q.substr(1) + "'";
+            if (!q[1])
+                menu.innerHTML = "Go to bookmark with label";
+            else
+                menu.innerHTML = "Go to bookmark with label '"
+                        + q.substr(1) + "'";
             break;
         case '!':
             $("#q").css({
                 'color': 'green',
                 'background-color': 'white'
             });
-            menu.innerHTML = 'Searching for ' + q.substr(1)
-                    + ' using bang syntax';
+            if (!q[1])
+                menu.innerHTML = 'Searching using bang syntax';
+            else
+                menu.innerHTML = "Searching for '" + q.substr(1)
+                        + "' using bang syntax";
             break;
         case '\\':
             $("#q").css({
                 'color': 'green',
                 'background-color': 'white'
             });
-            menu.innerHTML = 'Go to the first result for ' + q.substr(1);
+            menu.innerHTML = 'Go to the first result for: ' + q.substr(1);
             break;
         default:
             $("#q").css({
                 'color': 'black',
                 'background-color': 'white'
             });
-            menu.innerHTML = 'Searching for ' + q;
+            if (q == '')
+                menu.innerHTML = "type '@help' to get started";
+            else
+                menu.innerHTML = 'Searching for: ' + q;
         }
     });
 });
