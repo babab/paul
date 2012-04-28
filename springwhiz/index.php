@@ -151,6 +151,7 @@ $prefix_bookmark  = $tpl->get_prefix_bookmark();
     <?php if (isset($cmd) && ($cmd == 'login' || $cmd == 'register')): ?>
       <script type="text/javascript">
         $(document).ready(function(){
+          $("#menu").hide();
           <?php if (empty($_SESSION['username_inp'])): ?>
             $("#username").focus();
           <?php else: ?>
