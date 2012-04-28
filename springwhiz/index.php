@@ -20,12 +20,12 @@ session_start();
 require 'inc/springwhiz.php';
 $tpl = new springwhiz;
 
-$base_url   = $tpl->get_base_url();
-$cmd        = $tpl->get_cmd();
-$content    = $tpl->get_content();
-$q          = $tpl->get_q();
-$footer     = $tpl->get_footer();
-$token      = $tpl->create_token();
+$base_url         = $tpl->get_base_url();
+$cmd              = $tpl->get_cmd();
+$content          = $tpl->get_content();
+$q                = $tpl->get_q();
+$footer           = $tpl->get_footer();
+$token            = $tpl->create_token();
 $prefix_command   = $tpl->get_prefix_command();
 $prefix_bookmark  = $tpl->get_prefix_bookmark();
 
