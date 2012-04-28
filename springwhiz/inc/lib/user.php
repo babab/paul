@@ -52,6 +52,8 @@ final class user extends sprwz
         if ($_SESSION['logged_in'])
             return false;
 
+        $this->requireValidToken();
+
         $_SESSION['error'] = '';
         $_SESSION['logged_in'] = false;
 

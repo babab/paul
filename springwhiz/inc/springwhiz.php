@@ -66,10 +66,4 @@ class springwhiz extends sprwz
         return $this->footer;
     }
 
-    public function create_token()
-    {
-        $token = md5($this->secret_key . mt_rand());
-        $_SESSION['token'] = $token;
-        return $token;
-    }
 }

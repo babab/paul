@@ -87,8 +87,30 @@ class sprwz {
                     $db_login['db_port']);
     }
 
+    public function create_token()
+    {
+        $token = md5($this->secret_key . mt_rand());
+        $_SESSION['token'] = $token;
+        return $token;
+    }
+
+    protected function get_token()
+    {
+        return $_SESSION['token'];
+    }
+
     public static function error($errormsg)
     {
         die("<p><strong style=\"color:red\">Error</strong> $errormsg");
+    }
+
+
+    public static function requireValidToken()
+    {
+        if ($_POST['token'] === $_SESSION['token']) {
+            $_SESSION['token'] = '';
+            return true;
+        }
+        self::error("Invalid token.");
     }
 }

@@ -56,6 +56,8 @@ class notepad extends sprwz {
         if (!$_SESSION['logged_in'] || empty($this->user_id))
             return false;
 
+        $this->requireValidToken();
+
         $_SESSION['error'] = '';
 
         $this->notepad = htmlentities($_POST['notepad']);
@@ -75,6 +77,8 @@ class notepad extends sprwz {
                   <div class="center">
                    <input type="submit" id="submit" name="submit" value="save">
                   </div>
+                  <input type="hidden" id="token" name="token"
+                         value="'.$this->get_token().'">
                 </form>';
         return $html;
 
