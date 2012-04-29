@@ -14,14 +14,18 @@
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 require_once 'inc/lib/sprwz.php';
-require_once 'inc/lib/dbhandler.php';
 require_once 'inc/lib/user.php';
+require_once 'inc/lib/cookie_login.php';
 require_once 'inc/bookmark.php';
 require_once 'inc/notepad.php';
 
 echo 'Installing users table<br>';
 $user = new user;
 $user->install();
+
+echo 'Installing cookie_login table<br>';
+$cookie = new cookie_login(null);
+$cookie->install();
 
 echo 'Installing bookmarks table<br>';
 $bm = new bookmark;

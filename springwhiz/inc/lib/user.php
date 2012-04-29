@@ -13,6 +13,8 @@
 # ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
+require_once 'inc/lib/cookie_login.php';
+
 final class user extends sprwz
 {
     private $username;
@@ -56,6 +58,7 @@ final class user extends sprwz
 
         $_SESSION['error'] = '';
         $_SESSION['logged_in'] = false;
+        $_SESSION['logged_in_with_password'] = false;
 
         $this->username = filter_input(INPUT_POST, 'username',
                 FILTER_SANITIZE_STRING);
@@ -95,6 +98,10 @@ final class user extends sprwz
             if ($user['password'] === $this->password) {
                 $_SESSION['username'] = $this->username;
                 $_SESSION['logged_in'] = true;
+                $_SESSION['logged_in_with_password'] = true;
+                $cookie = new cookie_login($this->username);
+                $cookie->destroy();
+                $cookie->assign();
                 return true;
             }
         }

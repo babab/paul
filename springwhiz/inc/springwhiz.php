@@ -14,6 +14,7 @@
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 require_once 'inc/lib/sprwz.php';
+require_once 'inc/lib/cookie_login.php';
 require_once 'inc/command.php';
 
 class springwhiz extends sprwz
@@ -23,6 +24,11 @@ class springwhiz extends sprwz
     public function __construct()
     {
         parent::__construct();
+
+        if (!isset($_SESSION['logged_in']) || !$_SESSION['logged_in']) {
+            $cookie = new cookie_login(null);
+            $cookie->authorize();
+        }
     }
 
     public function get_base_url()

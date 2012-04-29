@@ -14,6 +14,7 @@
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 require_once 'inc/lib/sprwz.php';
+require_once 'inc/lib/cookie_login.php';
 require_once 'inc/bookmark.php';
 require_once 'inc/notepad.php';
 
@@ -89,10 +90,11 @@ class command {
             return array('login', ' ');
             break;
         case 'logout':
-            unset($_SESSION['username_inp']);
-            unset($_SESSION['username']);
-            unset($_SESSION['error']);
-            unset($_SESSION['logged_in']);
+            if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
+                $cookie = new cookie_login($_SESSION['username']);
+                $cookie->destroy();
+            }
+            $_SESSION = array();
             return array('logout', ' ');
             break;
         case 'notepad':
