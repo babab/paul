@@ -99,6 +99,7 @@ final class user extends sprwz
                 $_SESSION['username'] = $this->username;
                 $_SESSION['logged_in'] = true;
                 $_SESSION['logged_in_with_password'] = true;
+                $_SESSION['last_seen'] = $user['last_seen'];
 
                 if (isset($_POST['remember_me'])) {
                     $cookie = new cookie_login($this->username);
@@ -143,6 +144,14 @@ final class user extends sprwz
         $q = "UPDATE _T_users SET last_seen = '".time()."'
                 WHERE user_id = '$user_id'";
         $this->db->query($q);
+    }
+
+    public function get_timestamp($username)
+    {
+        $user_id = $this->id($username);
+        $q = "SELECT last_seen FROM _T_users WHERE user_id = '$user_id'";
+        if ($res = $this->db->qfetch_first($q))
+            return (int) $res['last_seen'];
     }
 
     public function install()

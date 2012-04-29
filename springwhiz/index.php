@@ -125,13 +125,19 @@ $prefix_bookmark  = $tpl->get_prefix_bookmark();
       </div><!-- #content -->
       <br>
       <div id="footer">
-        <a href="https://github.com/babab/springwhiz/">springwhiz v0.1</a>
-        <?php if ($footer) echo "| $footer"; ?> |
         <?php if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']): ?>
-          logged in as <?php echo $_SESSION['username'] ?>
-        <?php else: ?>
-          not logged in
+          <strong>
+          <?php echo $_SESSION['username'] ?>
+          </strong>
+          <?php if (isset($_SESSION['last_seen'])): ?>
+            | last session at
+            <?php echo date("Y-m-d H:i:s", $_SESSION['last_seen']) ?>
+          <?php endif ?>
+          <br>
         <?php endif ?>
+
+        <a href="https://github.com/babab/springwhiz/">springwhiz v0.1</a>
+        <?php if ($footer) echo "| $footer"; ?>
       </div><!-- #footer -->
     </div><!-- #container -->
 
