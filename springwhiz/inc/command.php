@@ -92,7 +92,11 @@ class command {
         case 'logout':
             if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
                 $cookie = new cookie_login($_SESSION['username']);
-                $cookie->destroy();
+
+                if (isset($args[1]) && $args[1] == 'all')
+                    $cookie->destroy_all();
+                else
+                    $cookie->destroy();
             }
             $_SESSION = array();
             return array('logout', ' ');

@@ -26,7 +26,7 @@ Basic commands::
   ---------------------------- ------- ---------------------------------------
   @register                    @reg    Will bring you to the register dialog
   @login [<username>]          @li     Will bring you to the login dialog
-  @logout                      @lo     Log out
+  @logout [all]                @lo     Log out (from all your sessions)
   @help                        @h      Show this help information
   @notepad                     @np     Open notepad
   @bookmark <subcommand>       @bm     Execute a bookmark command
