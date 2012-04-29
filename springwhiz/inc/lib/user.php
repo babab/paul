@@ -35,12 +35,14 @@ final class user extends sprwz
         if ($this->user_exists())
             return false;
 
-        $q = "INSERT INTO _T_users (username, password, salt, last_seen)
+        $q = "INSERT INTO _T_users (username, password, salt,
+                                    last_seen, last_ip)
                 VALUES (
                     '".$this->db->escape($this->username)."',
                     '".$this->db->escape($this->password)."',
                     '".$this->db->escape($this->salt)."',
-                    '" . time() . "'
+                    '" . time() . "',
+                    '" . htmlentities($_SERVER['REMOTE_ADDR']) . "'
                 )";
         $this->db->query($q);
         return true;
@@ -100,13 +102,14 @@ final class user extends sprwz
                 $_SESSION['logged_in'] = true;
                 $_SESSION['logged_in_with_password'] = true;
                 $_SESSION['last_seen'] = $user['last_seen'];
+                $_SESSION['last_ip'] = $user['last_ip'];
 
                 if (isset($_POST['remember_me'])) {
                     $cookie = new cookie_login($this->username);
                     $cookie->destroy();
                     $cookie->assign();
                 }
-                $this->update_timestamp($this->username);
+                $this->update_last_login($this->username);
                 return true;
             }
         }
@@ -138,20 +141,25 @@ final class user extends sprwz
         return $this->db->qfetch_first($q) !== false;
     }
 
-    public function update_timestamp($username)
+    public function update_last_login($username)
     {
         $user_id = $this->id($username);
-        $q = "UPDATE _T_users SET last_seen = '".time()."'
+        $q = "UPDATE _T_users
+                SET last_seen = '".time()."',
+                last_ip = '".htmlentities($_SERVER['REMOTE_ADDR'])."'
                 WHERE user_id = '$user_id'";
         $this->db->query($q);
     }
 
-    public function get_timestamp($username)
+    public function process_last_login($username)
     {
         $user_id = $this->id($username);
-        $q = "SELECT last_seen FROM _T_users WHERE user_id = '$user_id'";
-        if ($res = $this->db->qfetch_first($q))
-            return (int) $res['last_seen'];
+        $q = "SELECT last_seen, last_ip FROM _T_users
+                WHERE user_id = '$user_id'";
+        if ($res = $this->db->qfetch_first($q)) {
+            $_SESSION['last_seen'] = (int) $res['last_seen'];
+            $_SESSION['last_ip'] = $res['last_ip'];
+        }
     }
 
     public function install()
@@ -160,9 +168,10 @@ final class user extends sprwz
             CREATE TABLE IF NOT EXISTS _T_users (
                 user_id         INT(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,
                 username        VARCHAR(100) NOT NULL,
-                password        VARCHAR(512) NOT NULL,
-                salt            VARCHAR(512) NOT NULL,
-                last_seen       INT(10) NOT NULL
+                password        VARCHAR(128) NOT NULL,
+                salt            VARCHAR(128) NOT NULL,
+                last_seen       INT(10) NOT NULL,
+                last_ip         VARCHAR(70) NOT NULL
             ) ENGINE = InnoDB"
         );
     }

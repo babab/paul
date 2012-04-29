@@ -73,8 +73,8 @@ class cookie_login extends sprwz
                 $this->assign();
 
                 $user = new user;
-                $_SESSION['last_seen'] = $user->get_timestamp($this->username);
-                $user->update_timestamp($this->username);
+                $user->process_last_login($this->username);
+                $user->update_last_login($this->username);
                 return true;
             }
         }
