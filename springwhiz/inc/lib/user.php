@@ -169,7 +169,7 @@ final class user extends sprwz
 
     private function _makesalt()
     {
-        $this->salt = hash('sha512', $this->username . $this->base_url);
+        $this->salt = hash('sha512', $this->username . $this->secret_key);
     }
 
     private function _makepassword($password)
