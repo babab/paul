@@ -86,10 +86,11 @@ $prefix_bookmark  = $tpl->get_prefix_bookmark();
               <input type="password" id="password2" name="password2"
                    placeholder="password (check)">
               <br><br>
+            <?php else: ?>
+              <input type="checkbox" id="remember_me" name="remember_me">
+              <label for="remember_me">remember me</label>
+              <br><br>
             <?php endif ?>
-            <input type="checkbox" id="remember_me" name="remember_me">
-            <label for="remember_me">remember me</label>
-            <br><br>
             <input type="hidden" id="token" name="token"
                    value="<?php echo $token ?>">
             <input type="submit" id="submit" name="submit"
