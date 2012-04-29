@@ -13,6 +13,8 @@
 # ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
+require_once 'inc/lib/user.php';
+
 class cookie_login extends sprwz
 {
     private $username;
@@ -69,6 +71,9 @@ class cookie_login extends sprwz
                 $_SESSION['logged_in'] = true;
                 $this->destroy();
                 $this->assign();
+
+                $user = new user;
+                $user->update_timestamp($this->username);
                 return true;
             }
         }

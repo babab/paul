@@ -105,6 +105,7 @@ final class user extends sprwz
                     $cookie->destroy();
                     $cookie->assign();
                 }
+                $this->update_timestamp($this->username);
                 return true;
             }
         }
@@ -134,6 +135,14 @@ final class user extends sprwz
         $q = "SELECT last_seen FROM _T_users "
                 . "WHERE username = '$this->username'";
         return $this->db->qfetch_first($q) !== false;
+    }
+
+    public function update_timestamp($username)
+    {
+        $user_id = $this->id($username);
+        $q = "UPDATE _T_users SET last_seen = '".time()."'
+                WHERE user_id = '$user_id'";
+        $this->db->query($q);
     }
 
     public function install()
