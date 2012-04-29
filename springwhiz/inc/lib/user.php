@@ -99,9 +99,12 @@ final class user extends sprwz
                 $_SESSION['username'] = $this->username;
                 $_SESSION['logged_in'] = true;
                 $_SESSION['logged_in_with_password'] = true;
-                $cookie = new cookie_login($this->username);
-                $cookie->destroy();
-                $cookie->assign();
+
+                if (isset($_POST['remember_me'])) {
+                    $cookie = new cookie_login($this->username);
+                    $cookie->destroy();
+                    $cookie->assign();
+                }
                 return true;
             }
         }
