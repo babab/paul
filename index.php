@@ -53,6 +53,7 @@ $prefix_bookmark  = $tpl->get_prefix_bookmark();
           <small>
             not logged in
             | <a href="<?php echo $base_url ?>/?cmd=login">login</a>
+            | <a href="<?php echo $base_url ?>/?cmd=register">register</a>
           </small>
         <?php endif ?>
         <small> | <a href="<?php echo $base_url ?>/?cmd=help">help</a></small>
