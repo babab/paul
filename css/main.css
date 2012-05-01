@@ -42,7 +42,7 @@ a:hover {
     font-size: 24pt;
     font-weight: bold;
 }
-#q, #s1, #content {
+#content {
     display: none;
 }
 input {

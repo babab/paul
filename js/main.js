@@ -15,7 +15,6 @@
  */
 
 $(document).ready(function(){
-    $("#q").show("slow");
     $("#q").focus();
 
     menu = document.getElementById('menu');
