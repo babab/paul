@@ -131,9 +131,8 @@ $prefix_bookmark  = $tpl->get_prefix_bookmark();
           <?php echo $_SESSION['username'] ?>
           </strong>
           <?php if (isset($_SESSION['last_seen'])): ?>
-            | last session:
+            | last login:
             <?php echo date("Y-m-d H:i:s", $_SESSION['last_seen']) ?>
-            from <?php echo $_SESSION['last_ip'] ?>
           <?php endif ?>
           <br>
         <?php endif ?>
