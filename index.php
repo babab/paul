@@ -31,13 +31,6 @@ $prefix_bookmark  = $tpl->get_prefix_bookmark();
 
 ?><!doctype html>
 <html>
-  <head>
-    <link rel="stylesheet" type="text/css"
-          href="<?php echo $base_url ?>/css/main.css">
-    <script type="text/javascript"
-            src="<?php echo $base_url ?>/js/lib/jquery-1.7.1.min.js">
-    </script>
-  </head>
   <body>
     <div id="container">
       <div id="header"><a href="<?php echo $base_url ?>/">springwhiz</a></div>
@@ -141,37 +134,6 @@ $prefix_bookmark  = $tpl->get_prefix_bookmark();
         <?php if ($footer) echo "| $footer"; ?>
       </div><!-- #footer -->
     </div><!-- #container -->
-
-    <script type="text/javascript">
-      <?php
-        echo "sprwz_prefix_command = '$prefix_command';\n";
-        echo "sprwz_prefix_bookmark = '$prefix_bookmark';\n";
-      ?>
-    </script>
-    <script type="text/javascript"
-            src="<?php echo $base_url ?>/js/main.js">
-    </script>
-    <?php if (!empty($content)): ?>
-      <script type="text/javascript">
-        $(document).ready(function(){
-          $("#content").show();
-        });
-      </script>
-    <?php endif ?>
-
-    <?php if (isset($cmd) && ($cmd == 'login' || $cmd == 'register')): ?>
-      <script type="text/javascript">
-        $(document).ready(function(){
-          $("#menu").hide();
-          <?php if (empty($_SESSION['username_inp'])): ?>
-            $("#username").focus();
-          <?php else: ?>
-            $("#password").focus();
-          <?php endif ?>
-        });
-      </script>
-    <?php endif ?>
-
   </body>
 </html>
 <?php
