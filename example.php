@@ -22,35 +22,25 @@ $tpl = new springwhiz;
 
 $base_url         = $tpl->get_base_url();
 $cmd              = $tpl->get_cmd();
-$content          = $tpl->get_content();
-$q                = $tpl->get_q();
-$footer           = $tpl->get_footer();
 $token            = $tpl->create_token();
-$prefix_command   = $tpl->get_prefix_command();
-$prefix_bookmark  = $tpl->get_prefix_bookmark();
 
 ?><!doctype html>
 <html>
   <body>
     <div id="container">
-      <div id="header"><a href="<?php echo $base_url ?>/">springwhiz</a></div>
-
-      <div id="topmenu">
+      <div>
         <?php if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']): ?>
-          <small>
-          <a href="<?php echo $base_url ?>/?cmd=bookmark list">bookmarks</a>
-          | <a href="<?php echo $base_url ?>/?cmd=notepad">notepad</a>
-          | <a href="<?php echo $base_url ?>/?cmd=logout">logout</a>
-          </small>
+          <strong><?php echo $_SESSION['username'] ?></strong>
+          <?php if (isset($_SESSION['last_seen'])): ?>
+            | last login:
+            <?php echo date("Y-m-d H:i:s", $_SESSION['last_seen']) ?>
+            | <a href="<?php echo $base_url ?>/example.php?cmd=logout">logout</a>
+          <?php endif ?>
         <?php else: ?>
-          <small>
-            not logged in
-            | <a href="<?php echo $base_url ?>/?cmd=login">login</a>
-            | <a href="<?php echo $base_url ?>/?cmd=register">register</a>
-          </small>
+          not logged in
+          | <a href="<?php echo $base_url ?>/example.php?cmd=login">login</a>
+          | <a href="<?php echo $base_url ?>/example.php?cmd=register">register</a>
         <?php endif ?>
-        <small> | <a href="<?php echo $base_url ?>/?cmd=help">help</a></small>
-        <br><br>
       </div>
 
       <?php if (isset($_SESSION['error']) && !empty($_SESSION['error'])): ?>
@@ -98,41 +88,8 @@ $prefix_bookmark  = $tpl->get_prefix_bookmark();
             </a>
           </p>
         <?php endif ?>
-      <?php else: ?>
-        <form method="get"
-              action="<?php echo $base_url ?>/query.php">
-          <input type="text" id="q" name="q"
-                 autocomplete="off"
-                 placeholder="enter search string or command"
-                 value="<?php echo $q ?>">
       <?php endif ?>
       </form>
-      <br>
-
-      <div id="menu">
-        type '@help' to get started
-      </div>
-      <br>
-
-      <div id="content">
-        <?php echo $content ?>
-      </div><!-- #content -->
-      <br>
-      <div id="footer">
-        <?php if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']): ?>
-          <strong>
-          <?php echo $_SESSION['username'] ?>
-          </strong>
-          <?php if (isset($_SESSION['last_seen'])): ?>
-            | last login:
-            <?php echo date("Y-m-d H:i:s", $_SESSION['last_seen']) ?>
-          <?php endif ?>
-          <br>
-        <?php endif ?>
-
-        <a href="https://github.com/babab/springwhiz/">springwhiz v0.1</a>
-        <?php if ($footer) echo "| $footer"; ?>
-      </div><!-- #footer -->
     </div><!-- #container -->
   </body>
 </html>
