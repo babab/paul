@@ -13,10 +13,10 @@
 # ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
-require_once 'inc/lib/sprwz.php';
+require_once 'inc/lib/paul.php';
 require_once 'inc/lib/user.php';
 
-class notepad extends sprwz {
+class notepad extends paul {
     private $notepad;
     private $user_id;
 

@@ -1,6 +1,6 @@
 <?php
 /*
- * Copyright (c) 2012 Benjamin Althues <benjamin@babab.nl>
+ * Copyright (c) 2012, 2013  Benjamin Althues <benjamin@babab.nl>
  *
  * Permission to use, copy, modify, and distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
@@ -17,7 +17,7 @@
 
 require_once 'inc/lib/dbhandler.php';
 
-class sprwz {
+class paul {
     public static $settings = array(
             'base_url',
             'secret_key',
@@ -49,11 +49,11 @@ class sprwz {
 
     public function __construct()
     {
-        global $sprwz_conf;
+        global $paul_conf;
         include_once 'config.php';
 
-        if (isset($sprwz_conf))
-            $conf = $sprwz_conf;
+        if (isset($paul_conf))
+            $conf = $paul_conf;
         else
             $conf = null;
 
@@ -101,7 +101,7 @@ class sprwz {
 
     public static function error($errormsg)
     {
-        die("<p><strong style=\"color:red\">Error</strong> $errormsg");
+        die("<p><strong style=\"color:red\">paul error</strong> $errormsg");
     }
 
 

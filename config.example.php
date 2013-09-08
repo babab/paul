@@ -1,4 +1,4 @@
-<?php $sprwz_conf = array
+<?php $paul_conf = array
 (
 
 /* Main settings */
@@ -9,10 +9,10 @@
 /* Database settings */
 'db_host'           => 'localhost',
 'db_port'           => '3306',
-'db_name'           => 'sprwz',
+'db_name'           => 'paul',
 'db_user'           => 'username',
 'db_pass'           => 'password',
-'db_prefix'         => 'sprwz_',
+'db_prefix'         => 'paul_',
 
 /* Core settings */
 'prefix_command'    => '@',

@@ -1,6 +1,6 @@
 <?php
 /*
- * Copyright (c) 2012 Benjamin Althues <benjamin@babab.nl>
+ * Copyright (c) 2012, 2013  Benjamin Althues <benjamin@babab.nl>
  *
  * Permission to use, copy, modify, and distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
@@ -28,9 +28,9 @@ class dbhandler {
         $this->db_conn = mysql_connect($db_host.':'.$db_port,
                                        $db_user, $db_pass);
         if (!$this->db_conn)
-            sprwz::error("Connection error: ". mysql_error());
+            paul::error("Connection error: ". mysql_error());
         if (!mysql_select_db($db_name, $this->db_conn)) {
-            sprwz::error("Error connecting to database '" . $db_name .
+            paul::error("Error connecting to database '" . $db_name .
                 "': ". mysql_error());
         }
         return $this;
@@ -40,7 +40,7 @@ class dbhandler {
     {
         $q = str_replace('_T_', $this->db_prefix, $query);
         if (!$this->db_query = mysql_query($q, $this->db_conn))
-            sprwz::error("Query error: ". mysql_error());
+            paul::error("Query error: ". mysql_error());
 
         return $this;
     }

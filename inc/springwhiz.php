@@ -13,11 +13,11 @@
 # ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
-require_once 'inc/lib/sprwz.php';
+require_once 'inc/lib/paul.php';
 require_once 'inc/lib/cookie_login.php';
 require_once 'inc/command.php';
 
-class springwhiz extends sprwz
+class springwhiz extends paul
 {
     private $command;
 
