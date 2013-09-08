@@ -37,7 +37,7 @@ class paul {
             'footer',
             );
 
-    protected $base_url;
+    public $base_url;
     protected $secret_key;
     protected $prefix_command;
     protected $prefix_bookmark;

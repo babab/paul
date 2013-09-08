@@ -1,7 +1,7 @@
 <?php
 # vim: set ts=2 sw=2 sts=2:
 #
-# Copyright (c) 2012 Benjamin Althues <benjamin@babab.nl>
+# Copyright (c) 2012, 2013  Benjamin Althues <benjamin@babab.nl>
 #
 # Permission to use, copy, modify, and distribute this software for any
 # purpose with or without fee is hereby granted, provided that the above
@@ -16,31 +16,45 @@
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 session_start();
+require_once 'inc/lib/paul.php';
+require_once 'inc/lib/cookie_login.php';
 
-require 'inc/springwhiz.php';
-$tpl = new springwhiz;
+if (!isset($_SESSION['logged_in']) || !$_SESSION['logged_in']) {
+    $cookie = new cookie_login(null);
+    $cookie->authorize();
+}
 
-$base_url         = $tpl->get_base_url();
-$cmd              = $tpl->get_cmd();
-$token            = $tpl->create_token();
+$paul = new paul;
+$base_url         = $paul->base_url;
+$token            = $paul->create_token();
+
+
+if (!empty($_GET['cmd']))
+    $cmd = htmlentities($_GET['cmd']);
 
 ?><!doctype html>
 <html>
   <body>
     <div id="container">
       <div>
+
         <?php if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']): ?>
+
+          logged in as
           <strong><?php echo $_SESSION['username'] ?></strong>
           <?php if (isset($_SESSION['last_seen'])): ?>
             | last login:
             <?php echo date("Y-m-d H:i:s", $_SESSION['last_seen']) ?>
-            | <a href="<?php echo $base_url ?>/example.php?cmd=logout">logout</a>
           <?php endif ?>
+          | <a href="<?php echo $base_url ?>auth.php?logout">logout</a>
+
         <?php else: ?>
+
           not logged in
-          | <a href="<?php echo $base_url ?>/example.php?cmd=login">login</a>
-          | <a href="<?php echo $base_url ?>/example.php?cmd=register">register</a>
+          | <a href="<?php echo $base_url ?>example.php?cmd=login">login</a>
+          | <a href="<?php echo $base_url ?>example.php?cmd=register">register</a>
         <?php endif ?>
+
       </div>
 
       <?php if (isset($_SESSION['error']) && !empty($_SESSION['error'])): ?>
@@ -52,8 +66,9 @@ $token            = $tpl->create_token();
 
       <?php if (isset($cmd) && ($cmd == 'login' || $cmd == 'register')): ?>
         <?php if (!isset($_SESSION['logged_in']) || !$_SESSION['logged_in']): ?>
+
           <form method="post"
-                action="<?php echo $base_url ?>/query.php?m=user">
+                action="<?php echo $base_url ?>auth.php">
             <?php if (!empty($_SESSION['username_inp'])): ?>
               <input type="text" id="username" name="username"
                      placeholder="username"
@@ -79,14 +94,17 @@ $token            = $tpl->create_token();
                    value="<?php echo $token ?>">
             <input type="submit" id="submit" name="submit"
                    value="<?php echo $cmd ?>">
+
         <?php else: ?>
+
           <p>
             you are already logged in as
             <?php echo $_SESSION['username'] ?><br><br>
-            <a href="<?php echo $base_url ?>/">
-              return to <?php echo $base_url ?>/
+            <a href="<?php echo $base_url ?>">
+              return to <?php echo $base_url ?>
             </a>
           </p>
+
         <?php endif ?>
       <?php endif ?>
       </form>
