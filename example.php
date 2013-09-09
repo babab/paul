@@ -1,6 +1,4 @@
 <?php
-# vim: set ts=2 sw=2 sts=2:
-#
 # Copyright (c) 2012, 2013  Benjamin Althues <benjamin@babab.nl>
 #
 # Permission to use, copy, modify, and distribute this software for any
@@ -31,6 +29,13 @@ $token            = $paul->create_token();
 
 if (!empty($_GET['cmd']))
     $cmd = htmlentities($_GET['cmd']);
+
+/* Warning --  At line 14, the date() function is used
+ * It is not safe to rely on the system's timezone settings. You are *required*
+ * to set a value for the date.timezone setting in your systems php.ini or you
+ * can use the date_default_timezone_set() function.
+ */
+date_default_timezone_set('Europe/Amsterdam');
 
 ?><!doctype html>
 <html>
