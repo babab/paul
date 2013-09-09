@@ -1,23 +1,17 @@
 <?php $paul_conf = array
 (
+    # Set this to the path where the paul directory can be found
+    'base_url'   => 'http://localhost/',
 
-/* Main settings */
-'base_url'          => 'http://start',
-'secret_key'        => 'E4DgNjZqameRaRmEYdrvETULH3ah4QBM9LCSuPYgWAE4PJQm7y',
-'footer'            => false,
+    # Change this to something else
+    'secret_key' => '0PR_]DJcPRB:+}rZ:B_Y)9;,:)):nD].10b7pVw?s$khy?]BdS',
 
-/* Database settings */
-'db_host'           => 'localhost',
-'db_port'           => '3306',
-'db_name'           => 'paul',
-'db_user'           => 'username',
-'db_pass'           => 'password',
-'db_prefix'         => 'paul_',
-
-/* Core settings */
-'prefix_command'    => '@',
-'prefix_bookmark'   => '#',
-'search_engine_url' => 'https://duckduckgo.com/?q=',
-
+    # Database settings
+    'db_host'    => 'localhost',
+    'db_port'    => '3306',
+    'db_name'    => 'paul',
+    'db_user'    => 'username',
+    'db_pass'    => 'password',
+    'db_prefix'  => 'paul_',
 )
 ?>
