@@ -14,8 +14,7 @@
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 session_start();
-require_once 'inc/lib/paul.php';
-require_once 'inc/lib/cookie_login.php';
+require_once 'paul/paul.php';
 
 if (!isset($_SESSION['logged_in']) || !$_SESSION['logged_in']) {
     $cookie = new cookie_login(null);

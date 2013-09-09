@@ -14,7 +14,7 @@
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 session_start();
-require_once 'inc/lib/user.php';
+require_once 'paul/paul.php';
 $user = new user;
 
 if (isset($_GET['logout'])) {
