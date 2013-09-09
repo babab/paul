@@ -19,32 +19,18 @@ require_once 'inc/lib/dbhandler.php';
 
 class paul {
     public static $settings = array(
-            'base_url',
-            'secret_key',
-            'prefix_command',
-            'prefix_bookmark',
-            'search_engine_url',
-            );
-    public static $settings_db = array(
-            'db_host',
-            'db_port',
-            'db_name',
-            'db_user',
-            'db_pass',
-            'db_prefix',
-            );
-    public static $settings_optional = array(
-            'footer',
-            );
+        'base_url',
+        'secret_key',
+        'db_host',
+        'db_port',
+        'db_name',
+        'db_user',
+        'db_pass',
+        'db_prefix',
+    );
 
     public $base_url;
     protected $secret_key;
-    protected $prefix_command;
-    protected $prefix_bookmark;
-    protected $search_engine_url;
-
-    protected $footer;
-
     protected $db;
 
     public function __construct()
@@ -68,23 +54,15 @@ class paul {
                 self::error("Could not load the $s setting from config file.");
         }
 
-        foreach (self::$settings_optional as $s) {
-            $this->$s = $conf[$s];
-        }
-
-        $db_login = array();
-        foreach (self::$settings_db as $s) {
-            $db_login[$s] = $conf[$s];
-
-            if (empty($db_login[$s]))
-                self::error("Could not load the $s setting from config file.");
-        }
-
         if (!$this->db)
-            $this->db = new dbhandler($db_login['db_name'],
-                    $db_login['db_user'], $db_login['db_pass'],
-                    $db_login['db_prefix'], $db_login['db_host'],
-                    $db_login['db_port']);
+            $this->db = new dbhandler(
+                $this->db_name,
+                $this->db_user,
+                $this->db_pass,
+                $this->db_prefix,
+                $this->db_host,
+                $this->db_port
+            );
     }
 
     public function create_token()
