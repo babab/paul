@@ -50,7 +50,7 @@ date_default_timezone_set('Europe/Amsterdam');
             | last login:
             <?php echo date("Y-m-d H:i:s", $_SESSION['last_seen']) ?>
           <?php endif ?>
-          | <a href="<?php echo $base_url ?>auth.php?logout">logout</a>
+          | <a href="<?php echo $base_url ?>paul/auth.php?logout">logout</a>
 
         <?php else: ?>
 
@@ -72,7 +72,7 @@ date_default_timezone_set('Europe/Amsterdam');
         <?php if (!isset($_SESSION['logged_in']) || !$_SESSION['logged_in']): ?>
 
           <form method="post"
-                action="<?php echo $base_url ?>auth.php">
+                action="<?php echo $base_url ?>paul/auth.php">
             <?php if (!empty($_SESSION['username_inp'])): ?>
               <input type="text" id="username" name="username"
                      placeholder="username"
