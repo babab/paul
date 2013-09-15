@@ -38,80 +38,119 @@ date_default_timezone_set('Europe/Amsterdam');
 
 ?><!doctype html>
 <html>
+  <head>
+    <link rel="stylesheet"
+          href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet"
+          href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-theme.min.css">
+  </head>
   <body>
     <div id="container">
-      <div>
+      <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+          <div style="height: 50px"></div>
+          <div style="font-size: 16px">
+            <?php if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']): ?>
 
-        <?php if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']): ?>
+              logged in as
+              <strong><?= $_SESSION['username'] ?></strong>
 
-          logged in as
-          <strong><?php echo $_SESSION['username'] ?></strong>
-          <?php if (isset($_SESSION['last_seen'])): ?>
-            | last login:
-            <?php echo date("Y-m-d H:i:s", $_SESSION['last_seen']) ?>
+              <?php if (isset($_SESSION['last_seen'])): ?>
+                | last login:
+                <?php echo date("Y-m-d H:i:s", $_SESSION['last_seen']) ?>
+              <?php endif ?>
+
+              | <a href="<?= $base_url ?>paul/auth.php?logout">logout</a>
+
+            <?php else: ?>
+              not logged in
+              | <a href="<?= $base_url ?>example.php?cmd=login">login</a>
+              | <a href="<?= $base_url ?>example.php?cmd=register">register</a>
+            <?php endif ?>
+          </div>
+          <div style="height: 50px"></div>
+
+          <?php if (isset($_SESSION['error']) && !empty($_SESSION['error'])): ?>
+            <div class="alert alert-danger"><?= $_SESSION['error'] ?></div>
           <?php endif ?>
-          | <a href="<?php echo $base_url ?>paul/auth.php?logout">logout</a>
 
-        <?php else: ?>
+          <?php if (isset($cmd) && ($cmd == 'login' || $cmd == 'register')): ?>
+            <?php if (!isset($_SESSION['logged_in']) || !$_SESSION['logged_in']): ?>
 
-          not logged in
-          | <a href="<?php echo $base_url ?>example.php?cmd=login">login</a>
-          | <a href="<?php echo $base_url ?>example.php?cmd=register">register</a>
-        <?php endif ?>
+              <form method="post" class="form-horizontal" role="form"
+                    action="<?= $base_url ?>paul/auth.php">
 
+                <div class="form-group">
+                  <label for="username" class="col-lg-2 control-label">username</label>
+                  <div class="col-lg-10">
+                    <?php if (!empty($_SESSION['username_inp'])): ?>
+                      <input type="text" id="username" name="username"
+                             class="form-control" placeholder="username"
+                             value="<?= $_SESSION['username_inp'] ?>">
+                    <?php else: ?>
+                      <input type="text" id="username" name="username"
+                             class="form-control" placeholder="username">
+                    <?php endif ?>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="password" class="col-lg-2 control-label">password</label>
+                  <div class="col-lg-10">
+                    <input type="password" id="password" name="password"
+                           class="form-control" placeholder="password">
+                  </div>
+                </div>
+
+                <?php if ($cmd == 'register'): ?>
+                  <div class="form-group">
+                    <label for="password2" class="col-lg-2 control-label">password (again)</label>
+                    <div class="col-lg-10">
+                      <input type="password" id="password2" name="password2"
+                             class="form-control" placeholder="password (again)">
+                    </div>
+                  </div>
+                <?php else: ?>
+                  <div class="form-group">
+                    <div class="col-lg-offset-2 col-lg-10">
+                      <div class="checkbox">
+                        <label>
+                          <input type="checkbox" id="remember_me" name="remember_me"> Remember me
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                <?php endif ?>
+
+                <div class="form-group">
+                  <div class="col-lg-offset-2 col-lg-10">
+                    <button type="submit" class="btn btn-default">
+                      <?= $cmd ?>
+                    </button>
+                  </div>
+                </div>
+
+                <input type="hidden" id="token" name="token"
+                       value="<?= $token ?>">
+              </form>
+            <?php else: ?>
+
+              <p>
+                you are already logged in as
+                <?= $_SESSION['username'] ?><br><br>
+                <a href="<?= $base_url ?>">
+                  return to <?= $base_url ?>
+                </a>
+              </p>
+
+            <?php endif ?>
+          <?php endif ?>
+
+        </div>
+        <div class="col-md-4"></div>
       </div>
 
-      <?php if (isset($_SESSION['error']) && !empty($_SESSION['error'])): ?>
-        <p>
-          <span class="warn">Warning </span><?php echo $_SESSION['error'] ?>
-          <br>
-        </p>
-      <?php endif ?>
-
-      <?php if (isset($cmd) && ($cmd == 'login' || $cmd == 'register')): ?>
-        <?php if (!isset($_SESSION['logged_in']) || !$_SESSION['logged_in']): ?>
-
-          <form method="post"
-                action="<?php echo $base_url ?>paul/auth.php">
-            <?php if (!empty($_SESSION['username_inp'])): ?>
-              <input type="text" id="username" name="username"
-                     placeholder="username"
-                     value="<?php echo $_SESSION['username_inp'] ?>"><br><br>
-            <?php else: ?>
-              <input type="text" id="username" name="username"
-                     placeholder="username">
-              <br><br>
-            <?php endif ?>
-            <input type="password" id="password" name="password"
-                   placeholder="password">
-            <br><br>
-            <?php if ($cmd == 'register'): ?>
-              <input type="password" id="password2" name="password2"
-                   placeholder="password (check)">
-              <br><br>
-            <?php else: ?>
-              <input type="checkbox" id="remember_me" name="remember_me">
-              <label for="remember_me">remember me</label>
-              <br><br>
-            <?php endif ?>
-            <input type="hidden" id="token" name="token"
-                   value="<?php echo $token ?>">
-            <input type="submit" id="submit" name="submit"
-                   value="<?php echo $cmd ?>">
-
-        <?php else: ?>
-
-          <p>
-            you are already logged in as
-            <?php echo $_SESSION['username'] ?><br><br>
-            <a href="<?php echo $base_url ?>">
-              return to <?php echo $base_url ?>
-            </a>
-          </p>
-
-        <?php endif ?>
-      <?php endif ?>
-      </form>
     </div><!-- #container -->
   </body>
 </html>
