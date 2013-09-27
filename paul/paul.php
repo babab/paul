@@ -16,22 +16,10 @@
  */
 
 class paul {
-    public static $settings = array(
-        'base_url',
-        'redirect_after_login',
-        'redirect_after_logout',
-        'secret_key',
-        'db_host',
-        'db_port',
-        'db_name',
-        'db_user',
-        'db_pass',
-        'db_prefix',
-    );
-
     public $base_url;
-    protected $secret_key;
+    protected $conf;
     protected $db;
+    protected $secret_key;
 
     public function __construct()
     {
@@ -39,20 +27,26 @@ class paul {
         include_once 'config.php';
 
         if (isset($paul_conf))
-            $conf = $paul_conf;
+            $this->conf = $paul_conf;
         else
-            $conf = null;
+            $this->conf = null;
 
-        if (empty($conf))
+        if (empty($this->conf))
             $this->error("Could not load config file. Please copy "
                     . "'config.example.php' to 'config.php' and edit it.");
 
-        foreach (self::$settings as $s) {
-            $this->$s = $conf[$s];
+        $this->_setting('base_url');
+        $this->_setting('redirect_after_login');
+        $this->_setting('redirect_after_logout');
+        $this->_setting('secret_key');
+        $this->_setting('db_host');
+        $this->_setting('db_port');
+        $this->_setting('db_name');
+        $this->_setting('db_user');
+        $this->_setting('db_prefix');
 
-            if (empty($this->$s))
-                self::error("Could not load the $s setting from config file.");
-        }
+        if ($conf['db_pass'])
+            $this->db_pass = $this->conf['db_pass'];
 
         if (!$this->db)
             $this->db = new dbhandler(
@@ -63,6 +57,16 @@ class paul {
                 $this->db_host,
                 $this->db_port
             );
+    }
+
+    private function _setting($setting)
+    {
+        if ($this->conf[$setting])
+            $this->$setting = $this->conf[$setting];
+
+        if (empty($this->$setting))
+            self::error("Could not load the $setting setting " .
+                        "from config file.");
     }
 
     public function create_token()
