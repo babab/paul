@@ -18,6 +18,8 @@
 class paul {
     public static $settings = array(
         'base_url',
+        'redirect_after_login',
+        'redirect_after_logout',
         'secret_key',
         'db_host',
         'db_port',

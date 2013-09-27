@@ -27,12 +27,12 @@ if (isset($_GET['logout'])) {
             $cookie->destroy();
     }
     $_SESSION = array();
-    header("Location: $user->base_url");
+    header("Location: $user->redirect_after_logout");
     exit;
 }
 
 if (!empty($_POST)) {
     $user->authenticate_form();
-    header("Location: $user->base_url");
+    header("Location: $user->redirect_after_login");
     exit;
 }
