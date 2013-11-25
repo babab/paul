@@ -18,15 +18,16 @@ require_once 'paul.php';
 $user = new user;
 
 if (isset($_GET['logout'])) {
-    if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
-        $cookie = new cookie_login($_SESSION['username']);
+    if (isset($_SESSION['paul']['logged_in'])
+            && $_SESSION['paul']['logged_in']) {
+        $cookie = new cookie_login($_SESSION['paul']['username']);
 
         if ($_GET['logout'] == 'all')
             $cookie->destroy_all();
         else
             $cookie->destroy();
     }
-    $_SESSION = array();
+    $_SESSION['paul'] = array();
     header("Location: $user->redirect_after_logout");
     exit;
 }

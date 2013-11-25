@@ -45,7 +45,8 @@ class paul {
         $this->_setting('db_user');
         $this->_setting('db_prefix');
 
-        if ($conf['db_pass'])
+        $this->db_pass = '';
+        if ($this->conf['db_pass'])
             $this->db_pass = $this->conf['db_pass'];
 
         if (!$this->db)
@@ -72,13 +73,13 @@ class paul {
     public function create_token()
     {
         $token = md5($this->secret_key . mt_rand());
-        $_SESSION['token'] = $token;
+        $_SESSION['paul']['token'] = $token;
         return $token;
     }
 
     protected function get_token()
     {
-        return $_SESSION['token'];
+        return $_SESSION['paul']['token'];
     }
 
     public static function error($errormsg)
@@ -89,8 +90,8 @@ class paul {
 
     public static function requireValidToken()
     {
-        if ($_POST['token'] === $_SESSION['token']) {
-            $_SESSION['token'] = '';
+        if ($_POST['token'] === $_SESSION['paul']['token']) {
+            $_SESSION['paul']['token'] = '';
             return true;
         }
         self::error("Invalid token.");
@@ -200,14 +201,14 @@ final class user extends paul
         if (empty($_POST))
             return false;
 
-        if ($_SESSION['logged_in'])
+        if ($_SESSION['paul']['logged_in'])
             return false;
 
         $this->requireValidToken();
 
-        $_SESSION['error'] = '';
-        $_SESSION['logged_in'] = false;
-        $_SESSION['logged_in_with_password'] = false;
+        $_SESSION['paul']['error'] = '';
+        $_SESSION['paul']['logged_in'] = false;
+        $_SESSION['paul']['logged_in_with_password'] = false;
 
         $this->username = filter_input(INPUT_POST, 'username',
                 FILTER_SANITIZE_STRING);
@@ -218,7 +219,7 @@ final class user extends paul
                     FILTER_SANITIZE_STRING);
 
             if ($password !== $password2) {
-                $_SESSION['error'] = 'Passwords do not match, please '
+                $_SESSION['paul']['error'] = 'Passwords do not match, please '
                         . 'try again.';
                 $url = "$this->base_url/?cmd=register";
                 header("Location: $url");
@@ -226,14 +227,14 @@ final class user extends paul
             }
 
             if ($this->add($this->username, $password)) {
-                $_SESSION['username'] = $this->username;
-                $_SESSION['logged_in'] = true;
+                $_SESSION['paul']['username'] = $this->username;
+                $_SESSION['paul']['logged_in'] = true;
                 return true;
             }
             else {
-                $_SESSION['error'] = 'That username is already taken, please '
+                $_SESSION['paul']['error'] = 'That username is already taken, please '
                         . 'try another one.';
-                $_SESSION['username_inp'] = $this->username;
+                $_SESSION['paul']['username_inp'] = $this->username;
                 $url = "$this->base_url/?cmd=register $this->username";
                 header("Location: $url");
                 exit;
@@ -245,11 +246,11 @@ final class user extends paul
 
         if ($user = $this->fetch_user()) {
             if ($user['password'] === $this->password) {
-                $_SESSION['username'] = $this->username;
-                $_SESSION['logged_in'] = true;
-                $_SESSION['logged_in_with_password'] = true;
-                $_SESSION['last_seen'] = $user['last_seen'];
-                $_SESSION['last_ip'] = $user['last_ip'];
+                $_SESSION['paul']['username'] = $this->username;
+                $_SESSION['paul']['logged_in'] = true;
+                $_SESSION['paul']['logged_in_with_password'] = true;
+                $_SESSION['paul']['last_seen'] = $user['last_seen'];
+                $_SESSION['paul']['last_ip'] = $user['last_ip'];
 
                 if (isset($_POST['remember_me'])) {
                     $cookie = new cookie_login($this->username);
@@ -261,7 +262,7 @@ final class user extends paul
             }
         }
 
-        $_SESSION['error'] = 'Wrong username or password';
+        $_SESSION['paul']['error'] = 'Wrong username or password';
         return false;
     }
 
@@ -304,8 +305,8 @@ final class user extends paul
         $q = "SELECT last_seen, last_ip FROM _T_users
                 WHERE user_id = '$user_id'";
         if ($res = $this->db->qfetch_first($q)) {
-            $_SESSION['last_seen'] = (int) $res['last_seen'];
-            $_SESSION['last_ip'] = $res['last_ip'];
+            $_SESSION['paul']['last_seen'] = (int) $res['last_seen'];
+            $_SESSION['paul']['last_ip'] = $res['last_ip'];
         }
     }
 
@@ -386,8 +387,8 @@ final class cookie_login extends paul
         $tokens = $this->_fetch_tokens();
         foreach ($tokens as $token) {
             if ($token['token'] === $cookie[1]) {
-                $_SESSION['username'] = $this->username;
-                $_SESSION['logged_in'] = true;
+                $_SESSION['paul']['username'] = $this->username;
+                $_SESSION['paul']['logged_in'] = true;
                 $this->destroy();
                 $this->assign();
 
