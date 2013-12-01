@@ -35,15 +35,11 @@ class paul {
             $this->error("Could not load config file. Please copy "
                     . "'config.example.php' to 'config.php' and edit it.");
 
-        $this->_setting('base_url');
-        $this->_setting('redirect_after_login');
-        $this->_setting('redirect_after_logout');
-        $this->_setting('secret_key');
-        $this->_setting('db_host');
-        $this->_setting('db_port');
-        $this->_setting('db_name');
-        $this->_setting('db_user');
-        $this->_setting('db_prefix');
+        $this->_apply_settings(array(
+            'base_url', 'redirect_after_login', 'redirect_after_logout',
+            'secret_key', 'db_host', 'db_port', 'db_name', 'db_user',
+            'db_prefix'
+        ));
 
         $this->db_pass = '';
         if ($this->conf['db_pass'])
@@ -60,14 +56,16 @@ class paul {
             );
     }
 
-    private function _setting($setting)
+    private function _apply_settings($settings)
     {
-        if ($this->conf[$setting])
-            $this->$setting = $this->conf[$setting];
+        foreach($settings as $setting) {
+            if ($this->conf[$setting])
+                $this->$setting = $this->conf[$setting];
 
-        if (empty($this->$setting))
-            self::error("Could not load the $setting setting " .
-                        "from config file.");
+            if (empty($this->$setting))
+                self::error("Could not load the $setting setting " .
+                            "from config file.");
+        }
     }
 
     public function create_token()
