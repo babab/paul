@@ -21,6 +21,20 @@ class paul {
     protected $db;
     protected $secret_key;
 
+    public static function error($errormsg)
+    {
+        die("<p><strong style=\"color:red\">paul error</strong> $errormsg");
+    }
+
+    public static function requireValidToken()
+    {
+        if ($_POST['token'] === $_SESSION['paul']['token']) {
+            $_SESSION['paul']['token'] = '';
+            return true;
+        }
+        self::error("Invalid token.");
+    }
+
     public function __construct()
     {
         global $paul_conf;
@@ -56,18 +70,6 @@ class paul {
             );
     }
 
-    private function _apply_settings($settings)
-    {
-        foreach($settings as $setting) {
-            if ($this->conf[$setting])
-                $this->$setting = $this->conf[$setting];
-
-            if (empty($this->$setting))
-                self::error("Could not load the $setting setting " .
-                            "from config file.");
-        }
-    }
-
     public function create_token()
     {
         $token = md5($this->secret_key . mt_rand());
@@ -80,19 +82,16 @@ class paul {
         return $_SESSION['paul']['token'];
     }
 
-    public static function error($errormsg)
+    private function _apply_settings($settings)
     {
-        die("<p><strong style=\"color:red\">paul error</strong> $errormsg");
-    }
+        foreach($settings as $setting) {
+            if ($this->conf[$setting])
+                $this->$setting = $this->conf[$setting];
 
-
-    public static function requireValidToken()
-    {
-        if ($_POST['token'] === $_SESSION['paul']['token']) {
-            $_SESSION['paul']['token'] = '';
-            return true;
+            if (empty($this->$setting))
+                self::error("Could not load the $setting setting " .
+                            "from config file.");
         }
-        self::error("Invalid token.");
     }
 }
 
@@ -398,6 +397,16 @@ final class cookie_login extends paul
         }
     }
 
+    public function install()
+    {
+        $this->db->query("
+            CREATE TABLE IF NOT EXISTS _T_cookie_login (
+                username        VARCHAR(100) NOT NULL,
+                token           VARCHAR(74) NOT NULL UNIQUE
+            ) ENGINE = InnoDB"
+        );
+    }
+
     private function _fetch_tokens()
     {
         $q = "SELECT token FROM _T_cookie_login "
@@ -423,15 +432,5 @@ final class cookie_login extends paul
             return false;
 
         return array($username, $token);
-    }
-
-    public function install()
-    {
-        $this->db->query("
-            CREATE TABLE IF NOT EXISTS _T_cookie_login (
-                username        VARCHAR(100) NOT NULL,
-                token           VARCHAR(74) NOT NULL UNIQUE
-            ) ENGINE = InnoDB"
-        );
     }
 }
